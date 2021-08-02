@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Club
 
-# Register your models here.
+class ClubAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    
+admin.site.register(Club, ClubAdmin)

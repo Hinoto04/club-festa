@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if club %}
+        <title>{{club.name}}</title>
+    {% else %}
+        <title>Not Found</title>
+    {% endif %}
+</head>
+<body>
+    {% if club %}
+        <h2>{{club.name}}</h3>
+        {% if club.isofficial %}
+            <h4>{{club.category}} / 창체동아리 / {{club.member}}명 가입</h6>
+        {% else %}
+            <h6>{{club.category}} / 자율동아리 / {{club.member}}명 가입</h6>
+        {% endif %}
+        <p>{{club.description}}</p>
+    {% else %}
+        <p>동아리가 존재하지 않습니다.</p>
+    {% endif %}
+</body>
+</html>
