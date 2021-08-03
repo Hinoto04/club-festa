@@ -10,7 +10,7 @@
     {% if club_list %}
         <ul>
         {% for club in club_list %}
-            <li><a href="{{ club.id }}">{{ club.name }}</a></li>
+            <li><a href="{% url 'club:detail' club.id %}">{{ club.name }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
