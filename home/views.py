@@ -1,5 +1,11 @@
-from django.http.response import HttpResponse
+
 from django.shortcuts import render
 
 def index(request):
-    return HttpResponse("테스트")
+    return render(request, 'home/home_main.html')
+
+def register(request):
+    return render(request, 'home/home_register.html')
+
+def login(request):
+    return render(request, 'home/home_login.html')
