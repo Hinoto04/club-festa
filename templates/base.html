@@ -4,23 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     {% block style %}
     {% endblock style %}
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/navbar.js' %}"></script>
     <title>화명고 동아리 행사</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <a class="navbar-brand" href="{% url 'home:index' %}">화명고 동아리 행사</a>
-    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">화명고 동아리 / 행사</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <li class="nav-item ">
-                <a class="nav-link" href="{% url 'home:login' %}">로그인</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">메인 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">동아리</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">행사</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                로그인
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">마이페이지</a>
+                <a class="dropdown-item" href="#">동아리 관리</a>
+                <a class="dropdown-item" href="#">행사 관리</a>
+                </div>
             </li>
         </ul>
     </div>
@@ -28,7 +45,5 @@
 {% block content %}
 
 {% endblock content %}
-<script src="{% static 'jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'bootstrap.min.js' %}"></script>
 </body>
 </html>
