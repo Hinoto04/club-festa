@@ -9,29 +9,23 @@
     <div class="title">
         <h1>동아리 목록</h1>
     </div>
+    {% if club_list %}
+        <div class="d-flex clubs">
+            <ul class="d-flex wrap justify-content-center">
+                {% for club in club_list %}
+                    <li>
+                        <div class="club d-flex flex-column">
+                            <img src="{{club.club_thumbnail}}" alt="{{club.name}}" class="clubImage">
+                            <h4 class="clubName">{{club.name}}</h4>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
     <div class="d-flex clubs">
-        <ul class="d-flex wrap justify-content-center">
-            <li>
-                <div class="club d-flex">
-                    <img src="https://image.ajunews.com/content/image/2020/12/09/20201209180648329038.jpg" alt="AI" class="clubImage">
-                </div>
-            </li>
-            <li>
-                <div class="club d-flex">
-                    <img src="https://cdn.codingworldnews.com/news/photo/201906/img_1132_0.png" alt="프로그래밍" class="clubImage">
-                </div>
-            </li>
-            <li>
-                <div class="club d-flex">
-                    <img src="https://pbs.twimg.com/profile_images/1330860002605748231/KOnuvGCq_400x400.jpg" alt="MAKERS" class="clubImage">
-                </div>
-            </li>
-            <li>
-                <div class="club d-flex">
-                    <img src="https://pbs.twimg.com/profile_images/1330860002605748231/KOnuvGCq_400x400.jpg" alt="MAKERS" class="clubImage">
-                </div>
-            </li>
-        </ul>
+        <h3>동아리가 존재하지 않습니다.</h3>
     </div>
+    {% endif %}
 </div>
 {% endblock content %}
