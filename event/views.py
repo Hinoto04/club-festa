@@ -4,7 +4,7 @@
 ##def index(request):
 ##    return render("이밴트 목록은 준비중입니다.....")
 
-##from django.http import HttpResponse
+from django.http import HttpResponse
 
 
 def index(request):
