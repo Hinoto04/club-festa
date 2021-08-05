@@ -1,20 +1,31 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
-    <title>동아리 목록</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+{{ block.super }} <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}">
+{% endblock style %}
+{% block title %}동아리 목록{% endblock title %}
+{% block content %}
+<div class="d-flex flex-column center justify-content-center">
+    <div class="title">
+        <h1>동아리 목록</h1>
+    </div>
     {% if club_list %}
-        <ul>
-        {% for club in club_list %}
-            <li><a href="{% url 'club:detail' club.id %}">{{ club.name }}</a></li>
-        {% endfor %}
-        </ul>
+        <div class="d-flex clubs">
+            <ul class="d-flex wrap justify-content-center">
+                {% for club in club_list %}
+                    <li>
+                        <div class="club d-flex flex-column">
+                            <img src="{{club.club_thumbnail}}" alt="{{club.name}}" class="clubImage">
+                            <h4 class="clubName">{{club.name}}</h4>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     {% else %}
-        <p>동아리가 존재하지 않습니다.</p>
-    {% endif %}        
-</body>
-</html>
+    <div class="d-flex clubs">
+        <h3>동아리가 존재하지 않습니다.</h3>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
