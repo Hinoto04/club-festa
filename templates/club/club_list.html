@@ -22,6 +22,27 @@
                 {% endfor %}
             </ul>
         </div>
+        <nav aria-label="Page navigation example"><!--페이지네이션 시작-->
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% if club_list.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{club_list.previous_page_number}}">{{club_list.previous_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="#">{{club_list.number}}</a></li>
+                {% if club_list.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{club_list.next_page_number}}">{{club_list.next_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{last}}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav><!--페이지네이션 끝-->
     {% else %}<!--서버에서 동아리 목록을 받지 못했을 경우-->
     <div class="d-flex clubs">
         <h3>동아리가 존재하지 않습니다.</h3>

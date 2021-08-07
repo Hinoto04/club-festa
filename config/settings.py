@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'home.apps.HomeConfig',
     'club.apps.ClubConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',
