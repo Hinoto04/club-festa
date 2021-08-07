@@ -19,16 +19,3 @@ function getCookie(cname) {
     }
     return "";
 }
-
-window.onload = function() {
-    console.log(getCookie('account'));
-    var dropdown = document.getElementById('myPage');
-    if (getCookie('account') == '3') {
-        dropdown.innerHTML = '\
-        <a class="dropdown-item" href="#">마이페이지</a>\
-        <a class="dropdown-item" href="#">동아리 관리</a>\
-        <a class="dropdown-item" href="#">행사 관리</a>';
-    } else {
-        dropdown.innerHTML = '<a class="dropdown-item" href="/login">로그인</a>'
-    }
-}
