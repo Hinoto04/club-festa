@@ -1,3 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container">
+    <form method="post" class="post-form my-3" action="{% url 'home:register' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+                {% if field.errors %}
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" class="form-control" name="name" id="name"
+                    value="{{ form.name.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="username">아이디</label>
+            <input class="form-control" name="username"
+                        id="username" rows="10">{{ form.username.value|default_if_none:'' }}</input>
+        </div>
+        <div class="form-group">
+            <label for="password1">비밀번호</label>
+            <input class="form-control" name="password1", type="password"
+                        id="password1" rows="10">{{ form.password1.value|default_if_none:'' }}</input>
+        </div>
+        <div class="form-group">
+            <label for="password2">비밀번호 확인</label>
+            <input class="form-control" name="password2", type="password"
+                        id="password2" rows="10">{{ form.password2.value|default_if_none:'' }}</input>
+        </div>
+        <div class="form-group">
+            <label for="email">이메일</label>
+            <input class="form-control" name="email"
+                        id="email" rows="10">{{ form.email.value|default_if_none:'' }}</input>
+        </div>
+        <div class="form-group">
+            <label for="number">학번</label>
+            <input class="form-control" name="number"
+                        id="number" rows="10">{{ form.number.value|default_if_none:'' }}</input>
+        </div>
+        <button type="submit" class="btn btn-primary">저장하기</button>
+    </form>
+</div>
+
 {% endblock content %}

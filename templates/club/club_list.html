@@ -1,31 +1,52 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} <!--base.html 시작, 기본 html 형식 받아오기-->
+{% load static %} <!--스태틱 파일 로드-->
 {% block style %}
-{{ block.super }} <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}">
+{{ block.super }} <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}"> <!--스타일시트 로드, club/css/club_list.css 파일-->
 {% endblock style %}
-{% block title %}동아리 목록{% endblock title %}
-{% block content %}
+{% block title %}동아리 목록{% endblock title %}<!--페이지 제목-->
+{% block content %}<!--페이지 시작-->
 <div class="d-flex flex-column center justify-content-center">
     <div class="title">
         <h1>동아리 목록</h1>
     </div>
-    {% if club_list %}
+    {% if club_list %}<!--서버에서 동아리 목록을 받았을 경우-->
         <div class="d-flex clubs">
             <ul class="d-flex wrap justify-content-center">
-                {% for club in club_list %}
+                {% for club in club_list %}<!--동아리 목록 내에서 하나씩 반복-->
                     <li>
                         <div class="club d-flex flex-column">
-                            <img src="{{club.club_thumbnail}}" alt="{{club.name}}" class="clubImage">
-                            <h4 class="clubName">{{club.name}}</h4>
+                            <a href="{{club.id}}"><img src="{{club.club_thumbnail}}" alt="{{club.name}}" class="clubImage"></a>
+                            <a href="{{club.id}}" class="clubName">{{club.name}}</a>
                         </div>
                     </li>
                 {% endfor %}
             </ul>
         </div>
-    {% else %}
+        <nav aria-label="Page navigation example"><!--페이지네이션 시작-->
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% if club_list.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{club_list.previous_page_number}}">{{club_list.previous_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="#">{{club_list.number}}</a></li>
+                {% if club_list.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{club_list.next_page_number}}">{{club_list.next_page_number}}</a></li>
+                {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{last}}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav><!--페이지네이션 끝-->
+    {% else %}<!--서버에서 동아리 목록을 받지 못했을 경우-->
     <div class="d-flex clubs">
         <h3>동아리가 존재하지 않습니다.</h3>
     </div>
     {% endif %}
 </div>
-{% endblock content %}
+{% endblock content %}<!--페이지 끝-->

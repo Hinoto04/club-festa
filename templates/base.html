@@ -24,19 +24,28 @@
                 <a class="nav-link" href="#">메인</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../club">동아리</a>
+                <a class="nav-link" href="/club">동아리</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../event">행사</a>
+                <a class="nav-link" href="/event">행사</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                로그인
+                <a class="nav-link dropdown-toggle" href="/login" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if user.is_authenticated %}
+                        {{user.username}}
+                    {% else %}
+                        내 정보
+                    {% endif %}
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">마이페이지</a>
-                <a class="dropdown-item" href="#">동아리 관리</a>
-                <a class="dropdown-item" href="#">행사 관리</a>
+                <div id="myPage" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="#">마이페이지</a>
+                        <a class="dropdown-item" href="#">동아리 관리</a>
+                        <a class="dropdown-item" href="#">행사 관리</a>
+                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                    {% else %}
+                        <a class="dropdown-item" href="/login">로그인</a>
+                    {% endif %}
                 </div>
             </li>
         </ul>

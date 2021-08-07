@@ -1,26 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% if club %}
-        <title>{{club.name}}</title>
-    {% else %}
-        <title>Not Found</title>
-    {% endif %}
-</head>
-<body>
-    {% if club %}
-        <h2>{{club.name}}</h3>
-        {% if club.isofficial %}
-            <h4>{{club.category}} / 창체동아리 / {{club.member}}명 가입</h6>
-        {% else %}
-            <h4>{{club.category}} / 자율동아리 / {{club.member}}명 가입</h6>
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'css/club_detail.css' %}">
+{% endblock style %}
+{% block content %}
+{% if club %}
+    <div class="d-flex justify-content-center">
+    <img class="d-flex clubImage" src="{{club.club_thumbnail}}" alt="{{club.name}}">
+    </div>
+    <div class="d-flex justify-content-center title">
+        <h1>{{club.name}} 상세</h1>
+    </div>
+    <div>
+        <h4 class="subj">동아리명</h4>
+        <h2>{{club.name}}</h2>
+
+        <h4 class="subj">분야</h4>
+        <h2>{{club.category}}</h2>
+
+        <h4 class="subj">구분</h4>
+        {% if club.isofficial %} <h2>창체 동아리</h2>
+        {% else %} <h2>자율 동아리</h2>
         {% endif %}
-        <p>{{club.description}}</p>
-    {% else %}
-        <p>동아리가 존재하지 않습니다.</p>
-    {% endif %}
-</body>
-</html>
+
+        <h4 class="subj">현재 인원</h4>
+        <h2>{{club.member}}</h2>
+
+        <h4 class="subj">동아리장</h4>
+        <h2>{{club.club_master}}</h2>
+
+        <h4 class="subj">지도교사</h4>
+        <h2>{{club.club_teacher}}</h2>
+        
+        <h4 class="subj">설명</h4>
+        <p class="description">{{club.description}}</p>
+    </div>
+{% else %}
+    <h1>동아리 상세 정보 로딩에 실패했습니다.</h1>
+{% endif %}
+{% endblock content %}
