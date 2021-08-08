@@ -1,4 +1,5 @@
 
+from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import UserForm
 from .models import User
@@ -20,7 +21,8 @@ def register(request):
             user = User(name=form.cleaned_data.get('name'), 
                         number=form.cleaned_data.get('number'),
                         regi_date = timezone.now(),
-                        type = 'Student')
+                        type = 'Student',
+                        email = form.cleaned_data.get('email'))
             user.save()
             
             
@@ -42,3 +44,14 @@ def register(request):
 
 def login(request):
     return render(request, 'home/home_login.html')
+
+def myPage(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(id=request.user.id)
+        context = {
+            'myuser': user
+        }
+        return render(request, 'home/home_myPage.html', context)
+    else:
+        return HttpResponse("로그인 되어있지 않습니다.")
+    

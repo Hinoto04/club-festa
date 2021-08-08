@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}마이페이지{% endblock title %}
+{% block content %}
+    <div class="d-flex center flex-column ">
+        <div class="title d-flex justify-content-center">
+            <h1>마이페이지</h1>
+        </div>
+        {% if myuser %}
+            <div class="name">
+                <h2>{{myuser.number}} {{myuser.name}}</h2>
+                <h3>이메일</h3>
+                <h3>{{myuser.email}}</h3>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
