@@ -2,6 +2,7 @@
 {% load static %} <!--스태틱 파일 로드-->
 {% block style %}
 {{ block.super }} <link rel="stylesheet" type="text/css" href="{% static 'css/club_list.css' %}"> <!--스타일시트 로드, club/css/club_list.css 파일-->
+<script src="{% static 'js/popper.min.js' %}"></script>
 {% endblock style %}
 {% block title %}동아리 목록{% endblock title %}<!--페이지 제목-->
 {% block content %}<!--페이지 시작-->
@@ -9,44 +10,68 @@
     <div class="title">
         <h1>동아리 목록</h1>
     </div>
-    {% if club_list %}<!--서버에서 동아리 목록을 받았을 경우-->
-        <div class="d-flex clubs">
-            <ul class="d-flex wrap justify-content-center">
-                {% for club in club_list %}<!--동아리 목록 내에서 하나씩 반복-->
-                    <li>
-                        <div class="club d-flex flex-column">
-                            <a href="{{club.id}}"><img src="{{club.club_thumbnail}}" alt="{{club.name}}" class="clubImage"></a>
-                            <a href="{{club.id}}" class="clubName">{{club.name}}</a>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+    <div class="d-flex flex-column">
+        <div class="d-flex filterBox justify-content-center">
+            <p class="filterP">필터 : </p>
+            <form id="filter" method="get" action="{% url 'club:index' %}" class="form-inline">
+                <select name="official" id="filter" class="form-control form-control-sm filterSelect">
+                    <option value="2">모두</option>
+                    <option value="1">창체동아리</option>
+                    <option value="0">자율동아리</option>
+                </select>
+                <select name="category" id="filter" class="form-control form-control-sm filterSelect">
+                    <option value="all">모두</option>
+                    <option value="korean">국어</option>
+                    <option value="math">수학</option>
+                    <option value="english">영어</option>
+                    <option value="science">과학</option>
+                    <option value="society">사회</option>
+                    <option value="etc">기타</option>
+                </select>
+                <button class="btn" type="submit">검색</button>
+            </form>
         </div>
-        <nav aria-label="Page navigation example"><!--페이지네이션 시작-->
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="?page=1" aria-label="First">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                {% if club_list.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{club_list.previous_page_number}}">{{club_list.previous_page_number}}</a></li>
-                {% endif %}
-                <li class="page-item"><a class="page-link" href="#">{{club_list.number}}</a></li>
-                {% if club_list.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{club_list.next_page_number}}">{{club_list.next_page_number}}</a></li>
-                {% endif %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{last}}" aria-label="Last">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav><!--페이지네이션 끝-->
-    {% else %}<!--서버에서 동아리 목록을 받지 못했을 경우-->
-    <div class="d-flex clubs">
-        <h3>동아리가 존재하지 않습니다.</h3>
+        {% if club_list %}<!--서버에서 동아리 목록을 받았을 경우-->
+            <div class="d-flex clubs">
+                <ul class="d-flex wrap justify-content-center">
+                    {% for club in club_list %}<!--동아리 목록 내에서 하나씩 반복-->
+                        <li>
+                            <div class="club d-flex flex-column">
+                                <a href="{{club.id}}"><img src="{{club.club_thumbnail}}" alt="{{club.name}}" class="clubImage"></a>
+                                <a href="{{club.id}}" class="clubName">{{club.name}}</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example"><!--페이지네이션 시작-->
+                    <ul class="pagination marginzero">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% if club_list.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{club_list.previous_page_number}}">{{club_list.previous_page_number}}</a></li>
+                        {% endif %}
+                        <li class="page-item"><a class="page-link" href="#">{{club_list.number}}</a></li>
+                        {% if club_list.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{club_list.next_page_number}}">{{club_list.next_page_number}}</a></li>
+                        {% endif %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{last}}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav><!--페이지네이션 끝-->
+            </div>
+        {% else %}<!--서버에서 동아리 목록을 받지 못했을 경우-->
+            <div class="d-flex clubs">
+                <h3>동아리가 존재하지 않습니다.</h3>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>
 {% endblock content %}<!--페이지 끝-->
