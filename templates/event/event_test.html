@@ -1,13 +1,30 @@
-
 {% extends 'base.html' %}
 {% block title %}동아리 행사 목록{% endblock title %}
 {% block content %}
-<div class="d-flex flex-column center justify-content-center">
+<div class="calendar">
     <div class="title">
-        <h1>동아리 행사 목록</h1>
+        <h1>월별 행사</h1>
     </div>
-    <div class="d-flex event">
-        <h3>동아리 행사가 존재하지 않습니다.</h3>
+    <div class="header">
+        <div class="year-month"></div>
+        <div class="nav">
+        <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>
+        <button class="nav-btn go-today" onclick="goToday()">Today</button>
+        <button class="nav-btn go-next" onclick="nextMonth()">&gt;</button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="days">
+        <div class="day">일</div>
+        <div class="day">월</div>
+        <div class="day">화</div>
+        <div class="day">수</div>
+        <div class="day">목</div>
+        <div class="day">금</div>
+        <div class="day">토</div>
+        </div>
+        <div class="dates"></div>
     </div>
 </div>
+<script src="event_test.js"></script>
 {% endblock content %}
