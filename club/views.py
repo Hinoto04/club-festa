@@ -1,4 +1,5 @@
 
+from home.models import User
 from django.shortcuts import render
 from .models import Club
 from django.core.paginator import Paginator
@@ -34,5 +35,12 @@ def index(request):
 def detail(request, club_id):
     """클럽 상세 출력"""
     club = Club.objects.get(id=club_id)
-    context = {'club':club}
+    member_ids = club.member_detail.split(',')
+    member_list = []
+    for member_id in member_ids:
+        member_list.append(User.objects.get(id=member_id))
+    context = {
+        'club':club,
+        'member_list': member_list,
+        }
     return render(request, 'club/club_detail.html', context)

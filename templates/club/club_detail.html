@@ -33,6 +33,19 @@
         
         <h4 class="subj">설명</h4>
         <p class="description">{{club.description}}</p>
+
+        <h4 class="subj">동아리원 목록</h4>
+        <div class="memberList">
+            {% if member_list %}
+                <ul>
+                    {% for member in member_list %}
+                        <li>{{member.number}} {{member.name}}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h2>동아리원이 없습니다</h2>
+            {% endif %}
+        </div>
     </div>
 {% else %}
     <h1>동아리 상세 정보 로딩에 실패했습니다.</h1>
