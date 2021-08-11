@@ -15,7 +15,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">화명고 동아리 / 행사</a>
+    <a class="navbar-brand" href="/">화명고 동아리 / 행사</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,23 +25,23 @@
                 <a class="nav-link" href="/">메인</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/club">동아리</a>
+                <a class="nav-link" href="{% url 'club:index' %}">동아리</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/event">행사</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/login" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     내 정보
                 </a>
                 <div id="myPage" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     {% if user.is_authenticated %}
-                        <a class="dropdown-item" href="/myPage">마이페이지</a>
+                        <a class="dropdown-item" href="{% url 'home:user' %}">마이페이지</a>
                         <a class="dropdown-item" href="#">동아리 관리</a>
                         <a class="dropdown-item" href="#">행사 관리</a>
-                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                        <a class="dropdown-item" href="{% url 'home:logout' %}">로그아웃</a>
                     {% else %}
-                        <a class="dropdown-item" href="/login">로그인</a>
+                        <a class="dropdown-item" href="{% url 'home:login' %}">로그인</a>
                     {% endif %}
                 </div>
             </li>

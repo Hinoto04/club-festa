@@ -38,7 +38,12 @@ def detail(request, club_id):
     member_ids = club.member_detail.split(',')
     member_list = []
     for member_id in member_ids:
-        member_list.append(User.objects.get(id=member_id))
+        try:
+            member = User.objects.get(id=member_id)
+        except:
+            pass
+        else:
+            member_list.append(member)
     context = {
         'club':club,
         'member_list': member_list,

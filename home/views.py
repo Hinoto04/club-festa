@@ -17,12 +17,14 @@ def register(request):
         userForm = UserCreationForm(request.POST)
         if form.is_valid() and userForm.is_valid:
             form.clean()
-            userForm.save()
+            nowuser = userForm.save()
+            #nowuser = djangoUser.objects.order_by('id')
             user = User(name=form.cleaned_data.get('name'), 
                         number=form.cleaned_data.get('number'),
                         regi_date = timezone.now(),
                         type = 'Student',
-                        email = form.cleaned_data.get('email'))
+                        email = form.cleaned_data.get('email'),
+                        django_user = nowuser)
             user.save()
             
             
@@ -45,13 +47,13 @@ def register(request):
 def login(request):
     return render(request, 'home/home_login.html')
 
-def myPage(request):
+def user(request):
     if request.user.is_authenticated:
-        user = User.objects.get(id=request.user.id)
+        user = User.objects.get(django_user = request.user)
         context = {
             'myuser': user
         }
-        return render(request, 'home/home_myPage.html', context)
+        return render(request, 'home/home_user.html', context)
     else:
         return HttpResponse("로그인 되어있지 않습니다.")
     
