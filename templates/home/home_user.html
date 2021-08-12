@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load home_filter %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home_user.css' %}">
+{% endblock style %}
 {% block title %}마이페이지{% endblock title %}
 {% block content %}
     <div class="d-flex center flex-column ">
@@ -6,10 +11,28 @@
             <h1>마이페이지</h1>
         </div>
         {% if myuser %}
-            <div class="name">
-                <h2>{{myuser.number}} {{myuser.name}}</h2>
-                <h3>이메일</h3>
-                <h3>{{myuser.email}}</h3>
+            <div class="d-flex justify-content-center">
+                <div class="userdata">
+                    <div class="first d-flex">
+                        <div class="name flex-grow-1">
+                            <h2>{{myuser.number}} {{myuser.name}}</h2>
+                            <p class="profile_message">{{myuser.profile_message}}</p>
+                        </div>
+                        <div class="last_date">
+                            <p class="last_date">최종수정일 : {{myuser.lastedit}}</p>
+                        </div>
+                    </div>
+                    <div class="second">
+                        <h4>이메일</h4>
+                        <h3 class="underborder">{{myuser.email}}</h3>
+                        <h4>관심분야</h4>
+                        <h3 class="underborder">{{myuser.interested_in}}</h3>
+                        <h4>상세내용</h4>
+                        <div class="underborder">
+                            {{myuser.description|mark}}
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endif %}
     </div>

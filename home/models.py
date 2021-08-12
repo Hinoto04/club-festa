@@ -14,6 +14,7 @@ class User(models.Model):
     profile_message = models.CharField(max_length=200, default='')
     interested_in = models.CharField(max_length=20, default='')
     description = models.TextField(default='')
+    lastedit = models.DateField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
         return str(self.number) + self.name
