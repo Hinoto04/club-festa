@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User as djangoUser
 
 class UserForm(forms.Form):
     email = forms.EmailField(label='이메일')
@@ -8,7 +10,14 @@ class UserForm(forms.Form):
     password1 = forms.CharField(widget=forms.PasswordInput, label='비밀번호')
     password2 = forms.CharField(widget=forms.PasswordInput, label='비밀번호 확인')
     
-    fields = ['email', 'username', 'name', 'number', 'password1', 'password2']
+    fields = ('email', 'username', 'name', 'number', 'password1', 'password2')
     
     def clean(self):
         cleaned_data = super().clean()
+        
+class djangoUserForm(UserCreationForm):
+    email = forms.EmailField(label="이메일")
+    
+    class Meta:
+        model = djangoUser
+        fields = ("username", "password1", "password2", "email")

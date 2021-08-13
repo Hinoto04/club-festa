@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<script src="{% static 'js/home_register.js' %}"></script>
+{% endblock style %}
 {% block content %}
 <div class="container">
     <form method="post" class="post-form my-3" action="{% url 'home:register' %}">
@@ -22,7 +26,7 @@
         <div class="form-group">
             <label for="username">아이디</label>
             <input class="form-control" name="username"
-                        id="username" rows="10">{{ form.username.value|default_if_none:'' }}</input>
+                        id="username" onchange="check()" rows="10">{{ form.username.value|default_if_none:'' }}</input>
         </div>
         <div class="form-group">
             <label for="password1">비밀번호</label>
