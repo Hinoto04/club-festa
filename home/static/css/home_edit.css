@@ -1,0 +1,15 @@
+.size {
+    max-width:980px;
+}
+
+.title {
+    border-bottom: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.max {
+    max-width : 980px;
+    min-width : 320px;
+    width : 80%;
+}

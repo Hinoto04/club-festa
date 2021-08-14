@@ -21,3 +21,13 @@ class djangoUserForm(UserCreationForm):
     class Meta:
         model = djangoUser
         fields = ("username", "password1", "password2", "email")
+        
+class profileForm(forms.Form):
+    profile_message = forms.CharField(max_length=200)
+    interested_in = forms.CharField(max_length=20)
+    description = forms.CharField()
+    
+    fields = ('profile_message', 'interested_in', 'description')
+    
+    def clean(self):
+        cleaned_data = super().clean()

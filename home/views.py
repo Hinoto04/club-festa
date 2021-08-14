@@ -1,7 +1,7 @@
 
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import UserForm, djangoUserForm
+from .forms import UserForm, djangoUserForm, profileForm
 from .models import User
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
@@ -86,3 +86,22 @@ def checkmail(request):
         'data':'not exist' if user is None else 'exist'
     }
     return JsonResponse(result)
+
+def edit(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(django_user = request.user)
+        if request.method == 'POST':
+            print(request.POST)
+            user.profile_message = str(request.POST.get('profilemessage'))
+            user.interested_in = str(request.POST.get('interestedin'))
+            user.description = request.POST.get('description')
+            print(user.profile_message, user.interested_in, user.description)
+            user.save()
+            return redirect('home:index')
+        else:
+            context = {
+                'myuser': user
+            }
+            return render(request, 'home/home_edit.html', context)
+    else:
+        return HttpResponse("로그인 되어있지 않습니다.")

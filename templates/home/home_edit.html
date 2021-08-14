@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}마이페이지 수정{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home_edit.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+{% endblock style %}
+{% block content %}
+    <div class="d-flex flex-column">
+        <div class="d-flex title justify-content-center">
+            <h1>마이페이지 수정</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="max">
+                <form method="post" class="post-form my-3" action="{% url 'home:edit' %}">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                            {% if field.errors %}
+                            <strong>{{ field.label }}</strong>
+                            {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group col">
+                        <label for="profileMessage">상태메시지(아래 글의 제목)</label>
+                        <input name="profilemessage" type="text" class="form-control" maxlength="200"
+                        value="{{myuser.profile_message}}" id="profileMessage" placeholder="자신을 소개하는 문구, 아래 글의 제목">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="interestedIn">관심사</label>
+                        <input name="interestedin" type="text" class="form-control" id="interestedIn" placeholder="관심사"
+                        value="{{myuser.interested_in}}" maxlength="20">
+                    </div>
+                    <div class="form-group col">
+                        <label for="interestedIn">자신을 소개하는 글</label>
+                        <textarea name="description" type="description" id="Description">{{myuser.description}}</textarea>
+                        <script>
+                            var simplemde = new SimpleMDE({ 
+                                element: $("#Description")[0],
+                                spellChecker: false
+                                });
+                        </script>
+                    </div>
+                    <button type="submit" class="btn btn-primary">저장하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
