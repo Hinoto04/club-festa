@@ -7,10 +7,11 @@ app_name = 'home'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('register', views.register, name='register'),
-    path('checkid', views.checkmail, name='checkmail'),
-    path('login', auth_views.LoginView.as_view(template_name='home/home_login.html'), name='login'),
-    path('logout', auth_views.LogoutView.as_view(), name='logout'),
-    path('user', views.user, name='user'),
-    path('edit', views.edit, name='edit'),
+    path('register/', views.register, name='register'),
+    path('checkid/', views.checkmail, name='checkmail'),
+    path('login/', auth_views.LoginView.as_view(template_name='home/home_login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('user/', views.user, name='user'),
+    path('user/<int:userid>', views.user, name='user'),
+    path('edit/', views.edit, name='edit'),
 ]

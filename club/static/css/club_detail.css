@@ -65,6 +65,18 @@
     vertical-align: middle;
 }
 
+@media (max-width: 360px) {
+    .clubmaster {
+        width: 100%;
+        font-weight: 600;
+        text-align: center;
+        font-size: 1.2rem;
+        font-family: 'Nanum Gothic';
+        color: #535353;
+        vertical-align: middle;
+    }
+}
+
 .descriptionbox {
     margin: 1em;
     margin-bottom: 0;
@@ -73,8 +85,11 @@
 }
 
 .description {
+    font-family: "Nanum Gothic";
+    white-space: pre-wrap;
     margin: 0;
     text-align: center;
+    word-break: keep-all;
 }
 
 .clubsecond {
@@ -109,4 +124,14 @@
 .membername {
     width: 140px;
     margin-right: 2em;
+}
+
+.userlink {
+    text-decoration: none;
+    color: black;
+}
+
+.userlink:hover {
+    color: blue;
+    text-decoration: none;
 }

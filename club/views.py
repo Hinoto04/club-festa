@@ -3,6 +3,7 @@ from home.models import User
 from django.shortcuts import render
 from .models import Club
 from django.core.paginator import Paginator
+from django.contrib.auth.models import User as djangoUser
 
 category = {'korean':'국어',
             'math':'수학',
@@ -39,7 +40,7 @@ def detail(request, club_id):
     member_list = []
     for member_id in member_ids:
         try:
-            member = User.objects.get(id=member_id)
+            member = User.objects.get(django_user = djangoUser.objects.get(id=member_id))
         except:
             pass
         else:

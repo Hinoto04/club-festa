@@ -1,4 +1,5 @@
 
+from datetime import datetime
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import UserForm, djangoUserForm, profileForm
@@ -65,15 +66,26 @@ def register(request):
 def login(request):
     return render(request, 'home/home_login.html')
 
-def user(request):
-    if request.user.is_authenticated:
-        user = User.objects.get(django_user = request.user)
-        context = {
-            'myuser': user
-        }
-        return render(request, 'home/home_user.html', context)
+def user(request, userid = None):
+    if userid:
+        try:
+            user = User.objects.get(django_user = djangoUser.objects.get(id=userid))
+        except:
+            return HttpResponse("존재하지 않는 유저입니다.")
+        else:
+            context = {
+                'myuser': user
+            }
+            return render(request, 'home/home_user.html', context)
     else:
-        return HttpResponse("로그인 되어있지 않습니다.")
+        if request.user.is_authenticated:
+            user = User.objects.get(django_user = request.user)
+            context = {
+                'myuser': user
+            }
+            return render(request, 'home/home_user.html', context)
+        else:
+            return HttpResponse("로그인 되어있지 않습니다.")
 
 def checkmail(request):
     try:
@@ -91,11 +103,10 @@ def edit(request):
     if request.user.is_authenticated:
         user = User.objects.get(django_user = request.user)
         if request.method == 'POST':
-            print(request.POST)
             user.profile_message = str(request.POST.get('profilemessage'))
             user.interested_in = str(request.POST.get('interestedin'))
             user.description = request.POST.get('description')
-            print(user.profile_message, user.interested_in, user.description)
+            user.last_edit = datetime.now
             user.save()
             return redirect('home:index')
         else:
