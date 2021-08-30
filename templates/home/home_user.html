@@ -3,32 +3,37 @@
 {% load home_filter %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/home_user.css' %}">
+<style>
+    .img {
+        background-image: url({% static 'img/background.png' %});
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
 {% endblock style %}
-{% block title %}마이페이지{% endblock title %}
+{% block title %}{{myuser.number}} {{myuser.name}}{% endblock title %}
 {% block content %}
+<div class="">
     <div class="d-flex center flex-column ">
-        <div class="title d-flex justify-content-center">
-            <h1>유저 정보</h1>
-        </div>
         {% if myuser %}
             <div class="d-flex justify-content-center">
                 <div class="userdata">
                     <div class="first d-flex">
-                        <div class="name flex-grow-1">
+                        <div class="name flex-grow-1 justify-content-center">
                             <h2>{{myuser.number}} {{myuser.name}}</h2>
                             <p class="profile_message">{{myuser.profile_message}}</p>
                         </div>
+                        <!--
                         <div class="last_date">
                             <p class="last_date">최종수정일 : {{myuser.lastedit}}</p>
                         </div>
+                        -->
                     </div>
                     <div class="second">
-                        <h4>이메일</h4>
-                        <h3 class="underborder">{{myuser.email}}</h3>
                         <h4>관심분야</h4>
-                        <h3 class="underborder">{{myuser.interested_in}}</h3>
+                        <p class="interested">{{myuser.interested_in}}</p>
                         <h4>상세내용</h4>
-                        <div class="underborder">
+                        <div class="description">
                             {{myuser.description|mark}}
                         </div>
                     </div>
@@ -36,4 +41,5 @@
             </div>
         {% endif %}
     </div>
+</div>
 {% endblock content %}
