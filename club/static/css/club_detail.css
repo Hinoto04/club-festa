@@ -18,7 +18,7 @@
     width: 80%;
     max-height: 300px;
     object-fit: cover;
-    border-radius: 2em;
+    border-radius: 1.2em;
     border-color: transparent;
     box-shadow: 1em 1em 1em -0.9em black;
 }
@@ -30,7 +30,7 @@
     margin-left:auto;
     margin-right:auto;
     padding: 20px;
-    border-radius: 2em;
+    border-radius: 1.2em;
     border-color: transparent;
     box-shadow: 1em 1em 1em -0.9em black;
     z-index: 1;
@@ -89,7 +89,6 @@
     white-space: pre-wrap;
     margin: 0;
     text-align: center;
-    word-break: keep-all;
 }
 
 .clubsecond {
