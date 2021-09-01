@@ -1,3 +1,7 @@
+img {
+    max-width: 100%;
+}
+
 .userdata {
     max-width : 980px;
     width : 80%;
