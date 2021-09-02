@@ -22,7 +22,7 @@ align-items: center;
 }
 
 .year-month {
-font-size: 35px;
+font-size: 36px;
 }
 
 .nav {
@@ -61,31 +61,31 @@ text-align: center;
 display: flex;
 flex-flow: row wrap;
 height: 500px;
-border-top: 1px solid #333333;
-border-right: 1px solid #333333;
+border-top: 2px solid #333333;
+border-right: 2px solid #333333;
 }
 
 .date {
 width: calc(100% / 7);
 padding: 15px;
 text-align: right;
-border-bottom: 1px solid #333333;
-border-left: 1px solid #333333;
+border-bottom: 2px solid #333333;
+border-left: 2px solid #333333;
 }
 
 .day:nth-child(7n + 1),
 .date:nth-child(7n + 1) {
-  color: #D13E3E;
+  color: #FF5252;
 }
 
 .day:nth-child(7n),
 .date:nth-child(7n) {
-  color: #396EE2;
+  color: #1565C0;
 }
 
 .today {
     position: relative;
-    color: #F7C5CC;
+    color: #000000;
 }
 .today::before {
     position: absolute;
@@ -95,7 +95,7 @@ border-left: 1px solid #333333;
     display: block;
     width: 30px;
     height: 30px;
-    background-color: #CC313D;
+    background-color: #FFE57F;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     content: '';
