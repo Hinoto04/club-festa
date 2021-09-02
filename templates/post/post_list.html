@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/post_list.css' %}">
+{% endblock style %}
+{% block title %}게시판{% endblock title %}
+{% block content %}
+    {% if post_list %}
+        
+    {% endif %}
+{% endblock content %}
