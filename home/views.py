@@ -54,7 +54,13 @@ def register(request):
                     djangouser.save()
                     """
                 else:
-                    return HttpResponse("비밀번호가 잘못되었거나, 유효하지 않은 값입니다.")
+                    return HttpResponse("""<pre>
+유효하지 않은 값입니다.
+
+1. 비밀번호 확인을 잘못 입력한 경우
+2. 비밀번호가 너무 짧거나 안전하지 않은 경우
+3. 이메일이 이미 사용된 경우
+</pre>""")
             else:
                 return HttpResponse("중복된 아이디입니다.")
         else:
@@ -95,7 +101,7 @@ def checkmail(request):
         user = None
     result = {
         'result':'success',
-        'data':'not exist' if user is None else 'exist'
+        'data':'not exist' if user is None and request.GET['username'] != '' else 'exist'
     }
     return JsonResponse(result)
 

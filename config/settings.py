@@ -30,14 +30,13 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "*"
 ]
-
-
 # Application definition
 
 INSTALLED_APPS = [
     'club.apps.ClubConfig',
     'home.apps.HomeConfig',
     'event.apps.EventConfig',
+    'post.apps.PostConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
