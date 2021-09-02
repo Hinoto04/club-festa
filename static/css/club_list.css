@@ -1,0 +1,65 @@
+.marginzero {
+    margin: 0;
+}
+
+.center {
+    align-content: center;
+    align-items: center;
+}
+
+.title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.title>h1 {
+    vertical-align: middle;
+    margin: 0;
+}
+
+.clubs {
+    max-width:980px;
+}
+
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 0;
+}
+
+.clubImage {
+    width: 300px;
+    height: 120px;
+    object-fit: cover;
+    margin: 10px;
+    border: 5px;
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.clubName {
+    text-align: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+}
+
+.clubName:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.filterP {
+    font-size: 25px;
+    vertical-align: middle;
+    margin: 0; 
+}
+
+.filterSelect {
+    margin-left: 10px;
+}
