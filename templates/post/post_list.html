@@ -5,7 +5,15 @@
 {% endblock style %}
 {% block title %}게시판{% endblock title %}
 {% block content %}
-    {% if post_list %}
-        
-    {% endif %}
+    <div class="d-flex flex-column center justify-content-center">
+        <div class="title">
+            <h1>동아리 목록</h1>
+        </div>
+        <div class="d-flex">
+            <a href="?view=all">전체</a>
+        </div>
+        {% if post_list %}
+            
+        {% endif %}
+    </div>
 {% endblock content %}
