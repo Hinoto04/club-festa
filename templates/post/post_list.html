@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load post_filter %}
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/post_list.css' %}">
 {% endblock style %}
@@ -7,13 +8,116 @@
 {% block content %}
     <div class="d-flex flex-column center justify-content-center">
         <div class="title">
-            <h1>동아리 목록</h1>
+            <h1>게시판</h1>
         </div>
-        <div class="d-flex">
-            <a href="?view=all">전체</a>
+        <div class="d-flex justify-content-center">
+            <a class="filter" href="?view=all">전체</a>
+            <a class="filter" href="?view=notice">공지</a>
+            <a class="filter" href="?view=club">동아리</a>
+            <a class="filter" href="?view=hot">개념글</a>
         </div>
-        {% if post_list %}
-            
+        {% if post_list or notice_list %}
+        <div class="postlist">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col" class="id">#</th>
+                        <th scope="col" class="ptitle">제목</th>
+                        <th scope="col" class="author">글쓴이</th>
+                        <th scope="col" class="notmobile category">카테고리</th>
+                        <th scope="col" class="notmobile createdate">작성일</th>
+                        <th scope="col" class="views">조회</th>
+                        <th scope="col" class="notmobile like">추천</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if notice_list %}
+                        {% for notice in notice_list %}
+                            <tr class="notice">
+                                <th class="id" scope="row">{{notice.id}}</th>
+                                <td class="ptitle"><a href="{% url 'post:noticedetail' notice.id %}">{{notice.title}}</a></td>
+                                <td class="author"><a href="{% url 'home:user' notice.author.django_user.id %}">{{notice.author}}</a></td>
+                                <td class="notmobile category">공지</td>
+                                <td class="notmobile createdate">{{notice.create_date|dt}}</td>
+                                <td class="views">{{notice.views}}</td>
+                                <td class="notmobile like">{{notice.like}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    {% if post_list %}
+                        {% for post in post_list %}
+                            <tr class="post">
+                                <th class="id" scope="row">{{post.id}}</th>
+                                <td class="ptitle"><a href="{% url 'post:postdetail' post.id %}">{{post.title}}</a></td>
+                                <td class="author"><a href="{% url 'home:user' post.author.django_user.id %}">{{post.author|username}}</a></td>
+                                <td class="notmobile category"><a href="{% url 'club:detail' post.club.id %}">{{post.club.name|club}}</a></td>
+                                <td class="notmobile createdate">{{post.create_date|dt}}</td>
+                                <td class="views">{{post.views}}</td>
+                                <td class="notmobile like">{{post.like}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example"><!--페이지네이션 시작-->
+                    <ul class="pagination marginzero">
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% if post_list %}
+                            {% if post_list.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{post_list.previous_page_number}}">{{post_list.previous_page_number}}</a></li>
+                            {% endif %}
+                            <li class="page-item active"><a class="page-link" href="#">{{post_list.number}}</a></li>
+                            {% if post_list.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{post_list.next_page_number}}">{{post_list.next_page_number}}</a></li>
+                            {% endif %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{last}}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if notice.list %}
+                            {% if notice.list.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{notice.list.previous_page_number}}">{{notice.list.previous_page_number}}</a></li>
+                            {% endif %}
+                            <li class="page-item active"><a class="page-link" href="#">{{notice.list.number}}</a></li>
+                            {% if notice.list.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{notice.list.next_page_number}}">{{notice.list.next_page_number}}</a></li>
+                            {% endif %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{last}}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav><!--페이지네이션 끝-->
+            </div>
+        {% else %}
+            <div class="d-flex justify-content-center nothing">
+                <h3>조용합니다. 너무 조용하네요.</h3>
+            </div>
         {% endif %}
     </div>
+    <script>
+        const URLSearch = new URLSearchParams(location.search);
+        function searchParam(key) {
+            return URLSearch.get(key);
+        };
+        if(URLSearch.has('view')) {
+            jQuery(document).ready(function($) {
+                $(".page-link").each(function() {
+                    var elem = $(this);
+                    var href = elem.attr('href');
+                    elem.attr('href', href + '&view=' + searchParam('view'))
+                });
+            });
+        };
+    </script>
 {% endblock content %}

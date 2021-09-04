@@ -17,4 +17,7 @@ class User(models.Model):
     lastedit = models.DateField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
-        return str(self.number) + self.name
+        if self.type == 'Student':
+            return str(self.number) + " " + self.name
+        else:
+            return self.name

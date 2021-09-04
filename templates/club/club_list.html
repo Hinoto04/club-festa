@@ -55,7 +55,7 @@
                         {% if club_list.has_previous %}
                         <li class="page-item"><a class="page-link" href="?page={{club_list.previous_page_number}}">{{club_list.previous_page_number}}</a></li>
                         {% endif %}
-                        <li class="page-item"><a class="page-link" href="#">{{club_list.number}}</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">{{club_list.number}}</a></li>
                         {% if club_list.has_next %}
                         <li class="page-item"><a class="page-link" href="?page={{club_list.next_page_number}}">{{club_list.next_page_number}}</a></li>
                         {% endif %}
