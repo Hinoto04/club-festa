@@ -1,86 +1,92 @@
 * {
-margin: 0;
-padding: 0;
-font-family: sans-serif;
-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-display: flex;
-min-height: 100vh;
+    display: flex;
+    min-height: 100vh;
 }
 
 .calendar {
-width: 600px;
-margin: 50px;
+    position: absolute;
+    top: 4vh;
+    width: 90vw;
+    margin: 5vw;
+    margin-top: 56px;
 }
 
+.title>h1{
+    font-size: 5vw;
+}
 .header {
-display: flex;
-justify-content: space-between;
-align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .year-month {
-font-size: 36px;
+    font-size: 3.6vw;
 }
 
 .nav {
-display: flex;
-border: 1px solid #333333;
-border-radius: 5px;
+    display: flex;
+    border: 1px solid #333333;
+    border-radius: 1vw;
 }
 
 .nav-btn {
-width: 28px;
-height: 30px;
-border: none;
-font-size: 16px;
-line-height: 34px;
-background-color: transparent;
-cursor: pointer;
+    width: 3vw;
+    height: 3.6vw;
+    border: none;
+    font-size: 1.6vw;
+    line-height: 3.4VW;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .go-today {
-width: 75px;
-border-left: 1px solid #333333;
-border-right: 1px solid #333333;
+    width: 12vw;
+    border-left: 1px solid #333333;
+    border-right: 1px solid #333333;
 }
 
 .days {
-display: flex;
-margin: 25px 0 10px;
+    display: flex;
+    margin: 2vw 0 1vw;
 }
 
 .day {
-width: calc(100% / 7);
-text-align: center;
+    width: calc(100% / 7);
+    text-align: center;
 }
 
 .dates {
-display: flex;
-flex-flow: row wrap;
-height: 500px;
-border-top: 2px solid #333333;
-border-right: 2px solid #333333;
+    display: flex;
+    flex-flow: row wrap;
+    height: 60vw;
+    border-top: 2px solid #333333;
+    border-right: 2px solid #333333;
 }
 
 .date {
-width: calc(100% / 7);
-padding: 15px;
-text-align: right;
-border-bottom: 2px solid #333333;
-border-left: 2px solid #333333;
+    width: calc(100% / 7);
+    padding: 1vw 1vw 1vw;
+    text-align: right;
+    border-bottom: 2px solid #333333;
+    border-left: 2px solid #333333;
 }
 
 .day:nth-child(7n + 1),
 .date:nth-child(7n + 1) {
-  color: #FF5252;
+    color: #FF5252;
 }
 
 .day:nth-child(7n),
 .date:nth-child(7n) {
-  color: #1565C0;
+    color: #1565C0;
 }
 
 .today {
@@ -93,8 +99,8 @@ border-left: 2px solid #333333;
     left: 50%;
     z-index: -1;
     display: block;
-    width: 30px;
-    height: 30px;
+    width: 4vw;
+    height: 4vw;
     background-color: #FFE57F;
     border-radius: 50%;
     transform: translate(-50%, -50%);
