@@ -9,12 +9,12 @@ from django.core.paginator import Paginator
 
 def index(request):
     page = request.GET.get('page', '1')
-    filter = request.GET.get('view', None)
-    if filter is None or filter == 'all':
-        notice_list = Notice.objects.order_by('-create_date').filter(isHot=True)[:5]
-        post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
-    elif filter == 'notice':
+    filter = request.GET.get('view', 'all')
+    last = 1
+    if filter == 'notice':
         notice_list = Notice.objects.order_by('-create_date')
+        paginator = Paginator(notice_list, 20)
+        notice_list = paginator.get_page(page)
         post_list = None
     elif filter == 'club':
         if request.user:
@@ -33,12 +33,17 @@ def index(request):
     elif filter == 'hot':
         notice_list = None
         post_list = Post.objects.order_by('-create_date').filter(isprivate=False, like__gte=5)
+    else:
+        notice_list = Notice.objects.order_by('-create_date').filter(isHot=True)[:5]
+        post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
     if post_list:
         paginator = Paginator(post_list, 20)
         post_list = paginator.get_page(page)
     context = {
         "notice_list" : notice_list,
         "post_list" : post_list,
+        "last" : last,
+        "mode" : filter
     }
     return render(request, 'post/post_list.html', context)
 
@@ -47,14 +52,20 @@ def postdetail(request, post_id):
         post = Post.objects.get(id=post_id)
     except:
         return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
-    return render(request, 'post/post_detail.html', {"post": post})
+    context = {
+        "post": post,
+    }
+    return render(request, 'post/post_detail.html', context)
 
 def noticedetail(request, notice_id):
     try:
         post = Notice.objects.get(id=notice_id)
     except:
         return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
-    return render(request, 'post/post_detail.html', {"post":post})
+    context = {
+        "post": post,
+    }
+    return render(request, 'post/post_detail.html', context)
 
 def testcase(request):
     for i in range(50):

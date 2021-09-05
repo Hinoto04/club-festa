@@ -6,6 +6,10 @@ from django.utils.safestring import mark_safe
 register = template.Library()
 
 @register.filter()
+def title(value):
+    return value[:25]
+
+@register.filter()
 def username(value):
     vs = value.name.split(' ')
     if len(vs) <= 1:
