@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block style %}
+<style>
+    .text {
+        width: 100%;
+        font-size: 2rem;
+        align-items: center;
+        text-align: center;
+        vertical-align: middle;
+        padding-top: 52px;
+    }
+
+    @media (max-width: 768px) {
+        .text {
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock style %}
+{% block title %}오류{% endblock title %}
+{% block content %}
+    <div class="text">
+        {% if text %}
+            {{text}}
+        {% endif %}
+    </div>
+{% endblock content %}

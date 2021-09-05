@@ -54,17 +54,18 @@ def register(request):
                     djangouser.save()
                     """
                 else:
-                    return HttpResponse("""<pre>
+                    return render(request, 'error.html', {'text': 
+"""<pre>
 유효하지 않은 값입니다.
 
 1. 비밀번호 확인을 잘못 입력한 경우
 2. 비밀번호가 너무 짧거나 안전하지 않은 경우
 3. 이메일이 이미 사용된 경우
-</pre>""")
+</pre>"""})
             else:
-                return HttpResponse("중복된 아이디입니다.")
+                return render(request, 'error.html', {'text': "중복된 아이디입니다."})
         else:
-            return HttpResponse("유효하지 않은 값입니다.")
+            return render(request, 'error.html', {'text': "유효하지 않은 값입니다."})
     else:
         form = UserForm()
         return render(request, 'home/home_register.html', {'form':form})
@@ -77,7 +78,7 @@ def user(request, userid = None):
         try:
             user = User.objects.get(django_user = djangoUser.objects.get(id=userid))
         except:
-            return HttpResponse("존재하지 않는 유저입니다.")
+            return render(request, 'error.html', {'text': "존재하지 않는 유저입니다."})
         else:
             context = {
                 'myuser': user
@@ -91,7 +92,7 @@ def user(request, userid = None):
             }
             return render(request, 'home/home_user.html', context)
         else:
-            return HttpResponse("로그인 되어있지 않습니다.")
+            return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})
 
 def checkmail(request):
     try:
@@ -121,4 +122,4 @@ def edit(request):
             }
             return render(request, 'home/home_edit.html', context)
     else:
-        return HttpResponse("로그인 되어있지 않습니다.")
+        return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})

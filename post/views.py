@@ -46,14 +46,14 @@ def postdetail(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
     except:
-        return HttpResponse("게시글이 존재하지 않습니다.")
+        return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
     return render(request, 'post/post_detail.html', {"post": post})
 
 def noticedetail(request, notice_id):
     try:
         post = Notice.objects.get(id=notice_id)
     except:
-        return HttpResponse("게시글이 존재하지 않습니다.")
+        return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
     return render(request, 'post/post_detail.html', {"post":post})
 
 def testcase(request):
@@ -68,4 +68,4 @@ def testcase(request):
                     like=0, 
                     create_date=datetime.datetime.now())
         post.save()
-    return HttpResponse("테스트케이스 생성 완료")
+    return render(request, 'error.html', {'text': "테스트케이스 생성 완료"})

@@ -35,18 +35,22 @@ def index(request):
 
 def detail(request, club_id):
     """클럽 상세 출력"""
-    club = Club.objects.get(id=club_id)
-    member_ids = club.member_detail.split(',')
-    member_list = []
-    for member_id in member_ids:
-        try:
-            member = User.objects.get(django_user = djangoUser.objects.get(id=member_id))
-        except:
-            pass
-        else:
-            member_list.append(member)
-    context = {
-        'club':club,
-        'member_list': member_list,
-        }
-    return render(request, 'club/club_detail.html', context)
+    try:
+        club = Club.objects.get(id=club_id)
+    except:
+        return render(request, 'error.html', {'text': "동아리가 존재하지 않습니다."})
+    else:
+        member_ids = club.member_detail.split(',')
+        member_list = []
+        for member_id in member_ids:
+            try:
+                member = User.objects.get(django_user = djangoUser.objects.get(id=member_id))
+            except:
+                pass
+            else:
+                member_list.append(member)
+        context = {
+            'club':club,
+            'member_list': member_list,
+            }
+        return render(request, 'club/club_detail.html', context)
