@@ -60,21 +60,23 @@ body {
 
 .day {
     width: calc(100% / 7);
+    font-size: 4vw;
     text-align: center;
 }
 
 .dates {
     display: flex;
     flex-flow: row wrap;
-    height: 60vw;
+    height: 70vw;
+    margin: 0em auto;
     border-top: 2px solid #333333;
     border-right: 2px solid #333333;
 }
 
 .date {
     width: calc(100% / 7);
-    padding: 1vw 1vw 1vw;
-    text-align: right;
+    text-align: center;
+    font-size: 4vw;
     border-bottom: 2px solid #333333;
     border-left: 2px solid #333333;
 }
@@ -99,10 +101,14 @@ body {
     left: 50%;
     z-index: -1;
     display: block;
-    width: 4vw;
-    height: 4vw;
+    width: 3vw;
+    height: 3vw;
     background-color: #FFE57F;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     content: '';
+}
+
+.other {
+    opacity: .3;
 }
