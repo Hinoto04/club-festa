@@ -1,8 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load post_filter %}
 {% block style %}
-
+<link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 {% endblock style %}
 {% block title %}{{post.title}}{% endblock title %}
 {% block content %}
-    {{post.description}}
+    <div class="contents">
+        <div class="info">
+            <h6 class="title">{{post.title}}</h6>
+            <div class="d-flex justify-content-between infos">
+                <div class="infofirst d-flex">
+                    <p class="infodetail author">{{post.author}}</p>
+                    <p class="infodetail notmobile">{{post.create_date}}</p>
+                </div>
+                <div class="infosecond d-flex">
+                    <p class="infodetail views">조회 {{post.views}}</p>
+                    <p class="infodetail">추천 {{post.like}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="description">
+            {{post.description|mark}}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="addition">
+            <button class="btn likebtn"><i class="fas fa-lg fa-caret-up"></i></button>
+            <p class="likenum">{{post.like}}</p>
+            <button class="btn dislikebtn"><i class="fas fa-lg fa-caret-down"></i></button>
+        </div>
+        {% endif %}
+    </div>
 {% endblock content %}
