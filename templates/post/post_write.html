@@ -40,6 +40,7 @@
                     <div class="form-group">
                         <label for="club">동아리</label>
                         <select name="club" id="filter" class="form-control form-control-sm filterSelect">
+                            <option value="4">자유게시판</option>
                             {% if clubs %}
                                 {% for club in clubs %}
                                     <option value="{{club.id}}">{{club.name}}</option>

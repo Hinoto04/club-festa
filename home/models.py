@@ -8,7 +8,7 @@ class User(models.Model):
     type = models.CharField(max_length=20)
     year = models.IntegerField(default=2021)
     number = models.IntegerField()
-    regi_date = models.DateField()
+    regi_date = models.DateField(auto_created=True)
     django_user = models.ForeignKey(djangoUser, on_delete=CASCADE)
     email = models.EmailField()
     profile_message = models.CharField(max_length=200, default=' ')

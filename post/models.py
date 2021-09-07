@@ -10,7 +10,7 @@ class Notice(models.Model):
     author = models.ForeignKey(User, on_delete=CASCADE)
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
-    create_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_created=True)
     
     def __str__(self):
         return self.title
@@ -24,7 +24,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=CASCADE)
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
-    create_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_created=True)
     
     def __str__(self):
         return self.title
@@ -34,7 +34,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=CASCADE)
     author = models.ForeignKey(User, on_delete=CASCADE)
     like = models.IntegerField(default=0)
-    create_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_created=True)
     
     def __str__(self):
         return self.content

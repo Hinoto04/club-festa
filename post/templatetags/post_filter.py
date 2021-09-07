@@ -19,7 +19,6 @@ def username(value):
 
 @register.filter()
 def club(value):
-    print(value)
     if len(value)>6:
         s = ""
         vs = value.split()
@@ -38,7 +37,7 @@ def club(value):
 def dt(value:datetime):
     now = datetime.datetime.now()
     if value.date() == now.date():
-        return value.strftime('%H:%M')
+        return (value + datetime.timedelta(hours=9)).strftime('%H:%M')
     else:
         return value.strftime('%m.%d')
     

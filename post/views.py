@@ -55,6 +55,8 @@ def index(request):
 def postdetail(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
+        post.views += 1
+        post.save()
     except:
         return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
     context = {
@@ -65,6 +67,8 @@ def postdetail(request, post_id):
 def noticedetail(request, notice_id):
     try:
         post = Notice.objects.get(id=notice_id)
+        post.views += 1
+        post.save()
     except:
         return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
     context = {
@@ -81,6 +85,7 @@ def write(request):
                 isprivate = bool(request.POST.get('isprivate')),
                 author = User.objects.get(django_user=djangoUser.objects.get(id=request.user.id)),
                 club = Club.objects.get(id=request.POST.get('club')),
+                create_date = datetime.datetime.now()
             )
             post.save()
             return redirect(reverse('post:postdetail',args=[post.id]))
