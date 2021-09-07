@@ -10,17 +10,27 @@ body {
     min-height: 100vh;
 }
 
+.title {
+    text-align:center;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+.main{
+    max-width: 750px;
+    max-height: 650px;
+}
+
 .calendar {
     position: absolute;
     top: 4vh;
     width: 90vw;
     margin: 5vw;
     margin-top: 56px;
+    max-width: 750px;
+    max-height: 650px;
 }
 
-.title>h1{
-    font-size: 5vw;
-}
 .header {
     display: flex;
     justify-content: space-between;
@@ -28,27 +38,27 @@ body {
 }
 
 .year-month {
-    font-size: 3.6vw;
+    font-size: 20px;
 }
 
 .nav {
     display: flex;
     border: 1px solid #333333;
-    border-radius: 1vw;
+    border-radius: 10px;
 }
 
 .nav-btn {
-    width: 3vw;
-    height: 3.6vw;
+    width: 30px;
+    height: 30px;
     border: none;
-    font-size: 1.6vw;
-    line-height: 3.4VW;
+    font-size: 16px;
+    line-height: 30px;
     background-color: transparent;
     cursor: pointer;
 }
 
 .go-today {
-    width: 12vw;
+    width: 60px;
     border-left: 1px solid #333333;
     border-right: 1px solid #333333;
 }
@@ -71,6 +81,8 @@ body {
     margin: 0em auto;
     border-top: 2px solid #333333;
     border-right: 2px solid #333333;
+    max-width: 750px;
+    max-height: 600px;
 }
 
 .date {
