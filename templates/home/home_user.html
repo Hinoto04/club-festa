@@ -36,6 +36,14 @@
                         <div class="description">
                             {{myuser.description|mark}}
                         </div>
+                        {% if clubs %}
+                        <h4>가입 동아리</h4>
+                        <ul>
+                            {% for club in clubs %}
+                            <li><a class="clublink" href={% url 'club:detail' club.id %}>{{club.name}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>

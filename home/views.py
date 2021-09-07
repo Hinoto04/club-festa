@@ -8,6 +8,14 @@ from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User as djangoUser
 from django.contrib.auth.forms import UserCreationForm
+from club.models import Club
+
+def findclub(user):
+    clubs = []
+    for club in Club.objects.all():
+        if user.id in map(int, club.member_detail.split(',')):
+            clubs.append(club)
+    return clubs
 
 def index(request):
     return render(request, 'home/home_main.html')
@@ -76,19 +84,24 @@ def login(request):
 def user(request, userid = None):
     if userid:
         try:
-            user = User.objects.get(django_user = djangoUser.objects.get(id=userid))
+            du = djangoUser.objects.get(id=userid)
+            user = User.objects.get(django_user = du)
+            clubs = findclub(du)
         except:
             return render(request, 'error.html', {'text': "존재하지 않는 유저입니다."})
         else:
             context = {
-                'myuser': user
+                'myuser': user,
+                'clubs': clubs
             }
             return render(request, 'home/home_user.html', context)
     else:
         if request.user.is_authenticated:
             user = User.objects.get(django_user = request.user)
+            clubs = findclub(request.user)
             context = {
-                'myuser': user
+                'myuser': user,
+                'clubs': clubs
             }
             return render(request, 'home/home_user.html', context)
         else:
