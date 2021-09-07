@@ -2,10 +2,18 @@ from django.http.response import HttpResponse
 from post.models import Notice, Post
 from home.models import User
 from club.models import Club
+from django.contrib.auth.models import User as djangoUser
 from django.db.models import Q
 import datetime
-from django.shortcuts import render
+from django.shortcuts import redirect, render, reverse
 from django.core.paginator import Paginator
+
+def findclub(user):
+    clubs = []
+    for club in Club.objects.all():
+        if user.id in map(int, club.member_detail.split(',')):
+            clubs.append(club)
+    return clubs
 
 def index(request):
     page = request.GET.get('page', '1')
@@ -17,16 +25,13 @@ def index(request):
         notice_list = paginator.get_page(page)
         post_list = None
     elif filter == 'club':
-        if request.user:
-            clubs = []
-            for club in Club.objects.all():
-                if request.user.id in map(int, club.member_detail.split(',')):
-                    clubs.append(club)
+        if request.user.is_authenticated:
+            clubs = findclub(request.user)
             q = Q()
             for club in clubs:
                 q.add(Q(club=club), q.OR)
             notice_list = None
-            post_list = Post.objects.order_by('-create_date').filter(q, isprivate=False)
+            post_list = Post.objects.order_by('-create_date').filter(q)
         else:
             notice_list = Notice.objects.order_by('-create_date').filter(isHot=True)[:5]
             post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
@@ -66,6 +71,27 @@ def noticedetail(request, notice_id):
         "post": post,
     }
     return render(request, 'post/post_detail.html', context)
+
+def write(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            post = Post(
+                title = str(request.POST.get('title')),
+                description = str(request.POST.get('description')),
+                isprivate = bool(request.POST.get('isprivate')),
+                author = User.objects.get(django_user=djangoUser.objects.get(id=request.user.id)),
+                club = Club.objects.get(id=request.POST.get('club')),
+            )
+            post.save()
+            return redirect(reverse('post:postdetail',args=[post.id]))
+        else:
+            clubs = findclub(request.user)
+            context = {
+                'clubs': clubs,
+            }
+            return render(request, 'post/post_write.html', context)
+    else:
+        return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})
 
 def testcase(request):
     for i in range(50):

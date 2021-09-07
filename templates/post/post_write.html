@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}글쓰기{% endblock title %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home_edit.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+{% endblock style %}
+{% block content %}
+    <div class="d-flex flex-column">
+        <div class="d-flex title justify-content-center">
+            <h1>글쓰기</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="max">
+                <form method="post" class="post-form my-3" action="{% url 'post:write' %}">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                            {% if field.errors %}
+                            <strong>{{ field.label }}</strong>
+                            {{ field.errors }}
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input name="title" type="text" class="form-control" maxlength="50"
+                        id="title" placeholder="글의 제목, 최대 50자까지 입력할 수 있습니다.">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input name="isprivate" type="checkbox" class="form-check-input" maxlength=""
+                            id="isprivate" placeholder="">
+                            <label for="isprivate" class="form-check-label">동아리 한정 공개</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="club">동아리</label>
+                        <select name="club" id="filter" class="form-control form-control-sm filterSelect">
+                            {% if clubs %}
+                                {% for club in clubs %}
+                                    <option value="{{club.id}}">{{club.name}}</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">본문</label>
+                        <textarea name="description" type="description" id="Description"></textarea>
+                        <script>
+                            var simplemde = new SimpleMDE({ 
+                                element: $("#Description")[0],
+                                spellChecker: false
+                                });
+                        </script>
+                    </div>
+                    <button type="submit" class="btn btn-primary">저장하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

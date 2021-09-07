@@ -19,14 +19,15 @@ def username(value):
 
 @register.filter()
 def club(value):
-    if len(value)>5:
+    print(value)
+    if len(value)>6:
         s = ""
-        vs = value.split(' ')
-        if len(vs[0])>5:
-            for i in value.split(' '):
+        vs = value.split()
+        if len(vs[0])>6:
+            for i in value.split():
                 s += i[0]
-            if s>5:
-                s = s[:5]
+            if len(s)>6:
+                s = s[:6]
         else:
             s = vs[0]
         return s
