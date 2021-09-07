@@ -4,6 +4,48 @@
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script>
+    function like(i) {
+        $.ajax({
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            url:'/post/like',
+            type:'POST',
+            data: {
+                {% if post.club %}
+                posttype: "post",
+                {% else %}
+                posttype: "notice",
+                {% endif %}
+                postid: {{post.id}},
+                like: i,
+            },
+            dataType:'text',
+            success:function(response) {
+                console.log(response);
+                if(response == 'already') {
+                    alert("이미 평가한 글입니다.");
+                    return;
+                } else if(response == 'success') {
+                    likenum = document.getElementById('likenum');
+                    if(i) {
+                        likenum.innerHTML = String(parseInt(likenum.innerHTML) + 1);
+                        $('#likebtn').css('color', 'rgb(121, 228, 99)');
+                    } else {
+                        likenum.innerHTML = String(parseInt(likenum.innerHTML) - 1);
+                        $('#dislikebtn').css('color', 'rgb(255, 137, 137)');
+                    }
+                } else {
+                    alert("로그인 되어 있지 않습니다.");
+                    return;
+                }
+            },
+            error:function(xhr, error) {
+                alert("통신 오류입니다.");
+                return;
+            }
+        });
+    }
+</script>
 {% endblock style %}
 {% block title %}{{post.title}}{% endblock title %}
 {% block content %}
@@ -26,9 +68,9 @@
         </div>
         {% if user.is_authenticated %}
         <div class="addition">
-            <button class="btn likebtn"><i class="fas fa-lg fa-caret-up"></i></button>
-            <p class="likenum">{{post.like}}</p>
-            <button class="btn dislikebtn"><i class="fas fa-lg fa-caret-down"></i></button>
+            <button id="likebtn" class="btn likebtn" onclick="like(true)"><i class="fas fa-lg fa-caret-up"></i></button>
+            <p id="likenum" class="likenum">{{post.like}}</p>
+            <button id="dislikebtn" class="btn dislikebtn" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
         </div>
         {% endif %}
     </div>

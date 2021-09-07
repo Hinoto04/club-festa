@@ -15,6 +15,8 @@ class User(models.Model):
     interested_in = models.CharField(max_length=20, default=' ')
     description = models.TextField(default=' ')
     lastedit = models.DateField(auto_now=True, auto_now_add=False)
+    like = models.TextField(default='/')
+    noticelike = models.TextField(default='/')
 
     def __str__(self):
         if self.type == 'Student':

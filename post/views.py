@@ -98,6 +98,61 @@ def write(request):
     else:
         return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})
 
+def like(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            if request.POST.get('posttype') == 'post':
+                try:
+                    post = Post.objects.get(id=request.POST.get('postid'))
+                except:
+                    return HttpResponse("failed")
+                else:
+                    user = User.objects.get(django_user=request.user)
+                    ul = user.like.split('/')
+                    likelist = list(map(int, ul[0].split(','))) if len(ul[0])>0 else []
+                    unlikelist = list(map(int, ul[1].split(','))) if len(ul[1])>0 else []
+                    if not (post.id in likelist or post.id in unlikelist):
+                        if request.POST.get('like') == 'true':
+                            post.like += 1
+                            likelist.append(post.id)
+                        else:
+                            post.like -= 1
+                            unlikelist.append(post.id)
+                        user.like = ','.join(map(str, likelist))+'/'+','.join(map(str, unlikelist))
+                        user.save()
+                        post.save()
+                        return HttpResponse("success")
+                    else:
+                        return HttpResponse("already")
+            else:
+                try:
+                    post = Notice.objects.get(id=request.POST.get('postid'))
+                except:
+                    return HttpResponse("failed")
+                else:
+                    user = User.objects.get(django_user=request.user)
+                    ul = user.noticelike.split('/')
+                    likelist = list(map(int, ul[0].split(','))) if len(ul[0])>0 else []
+                    unlikelist = list(map(int, ul[1].split(','))) if len(ul[1])>0 else []
+                    if not (post.id in likelist or post.id in unlikelist):
+                        if request.POST.get('like') == 'true':
+                            post.like += 1
+                            likelist.append(post.id)
+                        else:
+                            post.like -= 1
+                            unlikelist.append(post.id)
+                        user.noticelike = ','.join(map(str, likelist))+'/'+','.join(map(str, unlikelist))
+                        user.save()
+                        post.save()
+                        return HttpResponse("success")
+                    else:
+                        return HttpResponse("already")
+        else:
+            return HttpResponse("not_authenticated")
+    else:
+        return render(request, 'error.html', {'text': '해당 링크는 비활성화되어있습니다.'})
+
+
 def testcase(request):
     for i in range(50):
         post = Post(title='테스트:[%03d]'%i, 
