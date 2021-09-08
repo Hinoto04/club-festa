@@ -68,9 +68,19 @@
         </div>
         {% if user.is_authenticated %}
         <div class="addition">
-            <button id="likebtn" class="btn likebtn" onclick="like(true)"><i class="fas fa-lg fa-caret-up"></i></button>
+            {% if like == 0 %}
+                <button id="likebtn" class="btn likebtn" onclick="like(true)"><i class="fas fa-lg fa-caret-up"></i></button>
+            {% endif %}
+            {% if like == 1 %}
+                <button id="likebtn" class="btn likecancelbtn" onclick="likecancel(true)"><i class="fas fa-lg fa-caret-up"></i></button>
+            {% endif %}
             <p id="likenum" class="likenum">{{post.like}}</p>
-            <button id="dislikebtn" class="btn dislikebtn" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
+            {% if like == 0 %}
+                <button id="dislikebtn" class="btn dislikebtn" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
+            {% endif %}
+            {% if like == -1 %}
+                <button id="dislikebtn" class="btn dislikecancelbtn" onclick="likecancel(false)"><i class="fas fa-lg fa-caret-down"></i></button>
+            {% endif %}
         </div>
         {% endif %}
     </div>

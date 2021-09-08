@@ -15,6 +15,16 @@ def findclub(user):
             clubs.append(club)
     return clubs
 
+def getLikeList(targetuser, type = "post"):
+    user = User.objects.get(django_user=targetuser)
+    if type == "post":
+        ul = user.like.split('/')
+    else:
+        ul = user.noticelike.split('/')
+    likelist = list(map(int, ul[0].split(','))) if len(ul[0])>0 else []
+    unlikelist = list(map(int, ul[1].split(','))) if len(ul[1])>0 else []
+    return likelist, unlikelist
+
 def index(request):
     page = request.GET.get('page', '1')
     filter = request.GET.get('view', 'all')
@@ -54,6 +64,13 @@ def index(request):
 
 def postdetail(request, post_id):
     try:
+        like = 0 
+        if request.user.is_authenticated:
+            likelist, unlikelist = getLikeList(request.user)
+            if post_id in likelist:
+                like = 1
+            elif post_id in unlikelist:
+                like = -1
         post = Post.objects.get(id=post_id)
         post.views += 1
         post.save()
@@ -61,11 +78,19 @@ def postdetail(request, post_id):
         return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
     context = {
         "post": post,
+        "like": like,
     }
     return render(request, 'post/post_detail.html', context)
 
 def noticedetail(request, notice_id):
     try:
+        like = 0 
+        if request.user.is_authenticated:
+            likelist, unlikelist = getLikeList(request.user, "notice")
+            if notice_id in likelist:
+                like = 1
+            elif notice_id in unlikelist:
+                like = -1
         post = Notice.objects.get(id=notice_id)
         post.views += 1
         post.save()
@@ -73,6 +98,7 @@ def noticedetail(request, notice_id):
         return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
     context = {
         "post": post,
+        "like": like,
     }
     return render(request, 'post/post_detail.html', context)
 
@@ -107,10 +133,8 @@ def like(request):
                 except:
                     return HttpResponse("failed")
                 else:
+                    likelist, unlikelist = getLikeList(request.user)
                     user = User.objects.get(django_user=request.user)
-                    ul = user.like.split('/')
-                    likelist = list(map(int, ul[0].split(','))) if len(ul[0])>0 else []
-                    unlikelist = list(map(int, ul[1].split(','))) if len(ul[1])>0 else []
                     if not (post.id in likelist or post.id in unlikelist):
                         if request.POST.get('like') == 'true':
                             post.like += 1
