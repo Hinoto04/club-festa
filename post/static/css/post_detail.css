@@ -71,7 +71,7 @@
     color:rgb(121, 228, 99);
 }
 .dislikecancelbtn {
-    color:rgb(255, 137, 137)
+    color:rgb(255, 137, 137);
 }
 
 .likenum {
@@ -79,6 +79,17 @@
     text-align: center;
     vertical-align: middle;
     width: 2em;
+    margin: 0;
+}
+
+.cwritegroup {
+    margin: 0;
+}
+.commenttextarea {
+    width: 100%;
+    font-size: 1em;
+    height: 8em;
+    resize: none;
     margin: 0;
 }
 

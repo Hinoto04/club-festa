@@ -106,5 +106,27 @@
             {% endif %}
         </div>
         {% endif %}
+        <div class="comments">
+            {% if user.is_authenticated %}
+                <div class="commentform">
+                    <form method="post" class="post-form my-3" action="{% url 'post:commentwrite' %}">
+                        {% csrf_token %}
+                        <div class="form-group cwritegroup">
+                            <label for="description">댓글 쓰기</label>
+                            <textarea name="description" type="description" id="Description" class="commenttextarea"
+                            row="5"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary csubmit">저장하기</button>
+                        </div>
+                    </form>
+                </div>
+            {% endif %}
+            {% if comment_list %}
+                {% for comment in comment_list %}
+                
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 {% endblock content %}

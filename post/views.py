@@ -43,13 +43,19 @@ def index(request):
             notice_list = None
             post_list = Post.objects.order_by('-create_date').filter(q)
         else:
-            notice_list = Notice.objects.order_by('-create_date').filter(isHot=True)[:5]
+            q = Q()
+            q.add(Q(hotDate__gte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
+            q.add(Q(publicDate__lte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
+            notice_list = Notice.objects.order_by('-create_date').filter(q)[:5]
             post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
     elif filter == 'hot':
         notice_list = None
         post_list = Post.objects.order_by('-create_date').filter(isprivate=False, like__gte=5)
     else:
-        notice_list = Notice.objects.order_by('-create_date').filter(isHot=True)[:5]
+        q = Q()
+        q.add(Q(hotDate__gte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
+        q.add(Q(publicDate__lte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
+        notice_list = Notice.objects.order_by('-create_date').filter(q)[:5]
         post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
     if post_list:
         paginator = Paginator(post_list, 20)
@@ -220,6 +226,9 @@ def like(request):
             return JsonResponse({"result":"failed"})
     else:
         return render(request, 'error.html', {'text': ['해당 링크는 비활성화되어있습니다.']})
+    
+def commentwrite(request):
+    return render(request, 'error.html', {'text': ['미구현 기능입니다.']})
 
 def testcase(request):
     for i in range(50):
