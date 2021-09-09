@@ -21,7 +21,9 @@
 {% block content %}
     <div class="text">
         {% if text %}
-            {{text}}
+            {% for t in text %}
+                <p>{{t}}</p>
+            {% endfor %}
         {% endif %}
     </div>
 {% endblock content %}

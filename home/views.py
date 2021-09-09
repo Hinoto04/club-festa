@@ -63,13 +63,11 @@ def register(request):
                     """
                 else:
                     return render(request, 'error.html', {'text': 
-"""<pre>
-유효하지 않은 값입니다.
-
-1. 비밀번호 확인을 잘못 입력한 경우
-2. 비밀번호가 너무 짧거나 안전하지 않은 경우
-3. 이메일이 이미 사용된 경우
-</pre>"""})
+["유효하지 않은 값입니다.",
+"1. 비밀번호 확인을 잘못 입력한 경우",
+"2. 비밀번호가 너무 짧거나 안전하지 않은 경우",
+"3. 이메일이 이미 사용된 경우",
+]})
             else:
                 return render(request, 'error.html', {'text': "중복된 아이디입니다."})
         else:

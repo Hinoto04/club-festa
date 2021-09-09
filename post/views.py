@@ -58,7 +58,7 @@ def postdetail(request, post_id):
         post.views += 1
         post.save()
     except:
-        return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
+        return render(request, 'error.html', {'text': ["게시글이 존재하지 않습니다."]})
     context = {
         "post": post,
     }
@@ -70,7 +70,7 @@ def noticedetail(request, notice_id):
         post.views += 1
         post.save()
     except:
-        return render(request, 'error.html', {'text': "게시글이 존재하지 않습니다."})
+        return render(request, 'error.html', {'text': ["게시글이 존재하지 않습니다."]})
     context = {
         "post": post,
     }
@@ -96,7 +96,7 @@ def write(request):
             }
             return render(request, 'post/post_write.html', context)
     else:
-        return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})
+        return render(request, 'error.html', {'text': ["로그인 되어 있지 않습니다."]})
 
 def like(request):
     if request.method == 'POST':
@@ -150,7 +150,7 @@ def like(request):
         else:
             return HttpResponse("not_authenticated")
     else:
-        return render(request, 'error.html', {'text': '해당 링크는 비활성화되어있습니다.'})
+        return render(request, 'error.html', {'text': ['해당 링크는 비활성화되어있습니다.']})
 
 
 def testcase(request):
@@ -165,4 +165,4 @@ def testcase(request):
                     like=0, 
                     create_date=datetime.datetime.now())
         post.save()
-    return render(request, 'error.html', {'text': "테스트케이스 생성 완료"})
+    return render(request, 'error.html', {'text': ["테스트케이스 생성 완료"]})
