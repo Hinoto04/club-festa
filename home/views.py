@@ -69,9 +69,9 @@ def register(request):
 "3. 이메일이 이미 사용된 경우",
 ]})
             else:
-                return render(request, 'error.html', {'text': "중복된 아이디입니다."})
+                return render(request, 'error.html', {'text': ["중복된 아이디입니다."]})
         else:
-            return render(request, 'error.html', {'text': "유효하지 않은 값입니다."})
+            return render(request, 'error.html', {'text': ["유효하지 않은 값입니다."]})
     else:
         form = UserForm()
         return render(request, 'home/home_register.html', {'form':form})
@@ -86,7 +86,7 @@ def user(request, userid = None):
             user = User.objects.get(django_user = du)
             clubs = findclub(du)
         except:
-            return render(request, 'error.html', {'text': "존재하지 않는 유저입니다."})
+            return render(request, 'error.html', {'text': ["존재하지 않는 유저입니다."]})
         else:
             context = {
                 'myuser': user,
@@ -103,7 +103,7 @@ def user(request, userid = None):
             }
             return render(request, 'home/home_user.html', context)
         else:
-            return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})
+            return render(request, 'error.html', {'text':[ "로그인 되어 있지 않습니다."]})
 
 def checkmail(request):
     try:
@@ -133,4 +133,4 @@ def edit(request):
             }
             return render(request, 'home/home_edit.html', context)
     else:
-        return render(request, 'error.html', {'text': "로그인 되어 있지 않습니다."})
+        return render(request, 'error.html', {'text': ["로그인 되어 있지 않습니다."]})
