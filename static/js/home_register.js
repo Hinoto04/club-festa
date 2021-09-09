@@ -13,10 +13,10 @@ function check() {
                 return;
             }
             if(response.data == 'exist') {
-                alert("존재하는 아이디입니다.");
+                $('#idcheck').innerHTML = "사용할 수 없는 아이디입니다.";
                 return;
             } else {
-                alert("사용 가능한 아이디입니다.");
+                $('#idcheck').innerHTML = "사용할 수 있는 아이디입니다.";
                 return;
             }
         },

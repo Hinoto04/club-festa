@@ -109,7 +109,6 @@ def checkmail(request):
     try:
         user = djangoUser.objects.get(username=request.GET['username'])
     except Exception as e:
-        print(e)
         user = None
     result = {
         'result':'success',
