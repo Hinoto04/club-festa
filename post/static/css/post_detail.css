@@ -57,6 +57,23 @@
 .dislikebtn:hover {
     color: rgb(255, 137, 137);
 }
+.likecancelbtn, .dislikecancelbtn {
+    width: 3em;
+    display: inline-block;
+    margin: 0;
+    text-shadow: 1em 1em 5px #000;
+    border: 1px solid rgb(146, 146, 146);
+}
+.likecancelbtn:hover, .dislikecancelbtn:hover {
+    color:rgb(146, 146, 146);
+}
+.likecancelbtn {
+    color:rgb(121, 228, 99);
+}
+.dislikecancelbtn {
+    color:rgb(255, 137, 137)
+}
+
 .likenum {
     display: inline-block;
     text-align: center;

@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from post.models import Notice, Post
 from home.models import User
 from club.models import Club
@@ -131,9 +131,10 @@ def like(request):
                 try:
                     post = Post.objects.get(id=request.POST.get('postid'))
                 except:
-                    return HttpResponse("failed")
+                    return JsonResponse({"result":"failed"})
                 else:
                     likelist, unlikelist = getLikeList(request.user)
+                    print(likelist, unlikelist)
                     user = User.objects.get(django_user=request.user)
                     if not (post.id in likelist or post.id in unlikelist):
                         if request.POST.get('like') == 'true':
@@ -145,19 +146,40 @@ def like(request):
                         user.like = ','.join(map(str, likelist))+'/'+','.join(map(str, unlikelist))
                         user.save()
                         post.save()
-                        return HttpResponse("success")
+                        return JsonResponse({"result":"success", "like":post.like, "change":"append"})
                     else:
-                        return HttpResponse("already")
+                        if request.POST.get('like') == 'false':
+                            if post.id in likelist:
+                                likelist.remove(post.id)
+                                unlikelist.append(post.id)
+                                change = "append"
+                                post.like -= 2
+                            else:
+                                unlikelist.remove(post.id)
+                                change = "remove"
+                                post.like += 1
+                        else:
+                            if post.id in unlikelist:
+                                likelist.append(post.id)
+                                unlikelist.remove(post.id)
+                                change = "append"
+                                post.like += 2 
+                            else:
+                                likelist.remove(post.id)
+                                change = "remove"
+                                post.like -= 1
+                        user.like = ','.join(map(str, likelist))+'/'+','.join(map(str, unlikelist))
+                        user.save()
+                        post.save()
+                        return JsonResponse({"result":"success", "like":post.like, "change":change})
             else:
                 try:
                     post = Notice.objects.get(id=request.POST.get('postid'))
                 except:
-                    return HttpResponse("failed")
+                    return JsonResponse({"result":"failed"})
                 else:
-                    user = User.objects.get(django_user=request.user)
-                    ul = user.noticelike.split('/')
-                    likelist = list(map(int, ul[0].split(','))) if len(ul[0])>0 else []
-                    unlikelist = list(map(int, ul[1].split(','))) if len(ul[1])>0 else []
+                    likelist, unlikelist = getLikeList(request.user)
+                    user = User.objects.get(django_user = request.user)
                     if not (post.id in likelist or post.id in unlikelist):
                         if request.POST.get('like') == 'true':
                             post.like += 1
@@ -168,14 +190,36 @@ def like(request):
                         user.noticelike = ','.join(map(str, likelist))+'/'+','.join(map(str, unlikelist))
                         user.save()
                         post.save()
-                        return HttpResponse("success")
+                        return JsonResponse({"result":"success", "like":post.like, "change":"append"})
                     else:
-                        return HttpResponse("already")
+                        if request.POST.get('like') == 'false':
+                            if post.id in likelist:
+                                likelist.remove(post.id)
+                                unlikelist.append(post.id)
+                                change = "append"
+                                post.like -= 2
+                            else:
+                                unlikelist.remove(post.id)
+                                change = "remove"
+                                post.like += 1
+                        else:
+                            if post.id in unlikelist:
+                                likelist.append(post.id)
+                                unlikelist.remove(post.id)
+                                change = "append"
+                                post.like += 2 
+                            else:
+                                likelist.remove(post.id)
+                                change = "remove"
+                                post.like -= 1
+                        user.noticelike = ','.join(map(str, likelist))+'/'+','.join(map(str, unlikelist))
+                        user.save()
+                        post.save()
+                        return JsonResponse({"result":"success", "like":post.like, "change":change})
         else:
-            return HttpResponse("not_authenticated")
+            return JsonResponse({"result":"failed"})
     else:
         return render(request, 'error.html', {'text': ['해당 링크는 비활성화되어있습니다.']})
-
 
 def testcase(request):
     for i in range(50):

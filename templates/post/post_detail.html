@@ -19,20 +19,37 @@
                 postid: {{post.id}},
                 like: i,
             },
-            dataType:'text',
+            dataType:'json',
             success:function(response) {
                 console.log(response);
-                if(response == 'already') {
-                    alert("이미 평가한 글입니다.");
-                    return;
-                } else if(response == 'success') {
+                if(response.result == 'success') {
                     likenum = document.getElementById('likenum');
                     if(i) {
-                        likenum.innerHTML = String(parseInt(likenum.innerHTML) + 1);
-                        $('#likebtn').css('color', 'rgb(121, 228, 99)');
+                        likenum.innerHTML = String(response.like);
+                        if(response.change == 'append') {
+                            $('#likebtn').css('display', 'none');
+                            $('#likecancelbtn').css('display', 'inline-block');
+                            $('#dislikebtn').css('display', 'inline-block');
+                            $('#dislikecancelbtn').css('display', 'none');
+                        } else {
+                            $('#likebtn').css('display', 'inline-block');
+                            $('#likecancelbtn').css('display', 'none');
+                            $('#dislikebtn').css('display', 'inline-block');
+                            $('#dislikecancelbtn').css('display', 'none');
+                        }
                     } else {
-                        likenum.innerHTML = String(parseInt(likenum.innerHTML) - 1);
-                        $('#dislikebtn').css('color', 'rgb(255, 137, 137)');
+                        likenum.innerHTML = String(response.like);
+                        if(response.change == 'append') {
+                            $('#likebtn').css('display', 'inline-block');
+                            $('#likecancelbtn').css('display', 'none');
+                            $('#dislikebtn').css('display', 'none');
+                            $('#dislikecancelbtn').css('display', 'inline-block');
+                        } else {
+                            $('#likebtn').css('display', 'inline-block');
+                            $('#likecancelbtn').css('display', 'none');
+                            $('#dislikebtn').css('display', 'inline-block');
+                            $('#dislikecancelbtn').css('display', 'none');
+                        }
                     }
                 } else {
                     alert("로그인 되어 있지 않습니다.");
@@ -68,18 +85,24 @@
         </div>
         {% if user.is_authenticated %}
         <div class="addition">
-            {% if like == 0 %}
+            {% if like != 1 %}
                 <button id="likebtn" class="btn likebtn" onclick="like(true)"><i class="fas fa-lg fa-caret-up"></i></button>
-            {% endif %}
-            {% if like == 1 %}
-                <button id="likebtn" class="btn likecancelbtn" onclick="likecancel(true)"><i class="fas fa-lg fa-caret-up"></i></button>
+                <button id="likecancelbtn" class="btn likecancelbtn" onclick="like(true)" 
+                style="display:none"><i class="fas fa-lg fa-caret-up"></i></button>
+            {% else %}
+                <button id="likebtn" class="btn likebtn" onclick="like(true)" 
+                style="display:none"><i class="fas fa-lg fa-caret-up"></i></button>
+                <button id="likecancelbtn" class="btn likecancelbtn" onclick="like(true)"><i class="fas fa-lg fa-caret-up"></i></button>
             {% endif %}
             <p id="likenum" class="likenum">{{post.like}}</p>
-            {% if like == 0 %}
+            {% if like != -1 %}
                 <button id="dislikebtn" class="btn dislikebtn" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
-            {% endif %}
-            {% if like == -1 %}
-                <button id="dislikebtn" class="btn dislikecancelbtn" onclick="likecancel(false)"><i class="fas fa-lg fa-caret-down"></i></button>
+                <button id="dislikecancelbtn" class="btn dislikecancelbtn" 
+                style="display:none" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
+            {% else %}
+                <button id="dislikebtn" class="btn dislikebtn" 
+                style="display:none" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
+                <button id="dislikecancelbtn" class="btn dislikecancelbtn" onclick="like(false)"><i class="fas fa-lg fa-caret-down"></i></button>
             {% endif %}
         </div>
         {% endif %}
