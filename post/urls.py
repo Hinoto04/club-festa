@@ -10,6 +10,6 @@ urlpatterns = [
     path('notice/<int:notice_id>/', views.noticedetail, name='noticedetail'),
     path('write', views.write, name='write'),
     path('like', views.like, name='like'),
-    path('comment/write', views.commentwrite, name='commentwrite'),
+    path('comment/write/<int:post_id>', views.commentwrite, name='commentwrite'),
     #path('testcase/', views.testcase, name='testcase')
 ]

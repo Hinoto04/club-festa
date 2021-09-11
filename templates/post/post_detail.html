@@ -109,22 +109,33 @@
         <div class="comments">
             {% if user.is_authenticated %}
                 <div class="commentform">
-                    <form method="post" class="post-form my-3" action="{% url 'post:commentwrite' %}">
+                    {% if post.club %}
+                        <form method="post" class="post-form" action="{% url 'post:commentwrite' post.id %}?type=post">
+                    {% else %}
+                        <form method="post" class="post-form" action="{% url 'post:commentwrite' post.id %}?type=notice">
+                    {% endif %}
                         {% csrf_token %}
                         <div class="form-group cwritegroup">
                             <label for="description">댓글 쓰기</label>
                             <textarea name="description" type="description" id="Description" class="commenttextarea"
-                            row="5"></textarea>
+                            wrap="virtual" onkeyup="this.style.height='26px'; this.style.height = this.scrollHeight + 'px';"></textarea>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary csubmit">저장하기</button>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary csubmit">저장하기</button>
-                        </div>
+                        
                     </form>
                 </div>
             {% endif %}
             {% if comment_list %}
                 {% for comment in comment_list %}
-                
+                    <div class="d-flex comment flex-column">
+                        <div class="d-flex commentinfo">
+                            <p class="commentauthor flex-grow-1">{{comment.author}}</p>
+                            <p class="commentcreatedate">{{comment.create_date|dt}}</p>
+                        </div>
+                        <p class="commentcontent">{{comment.content}}</p>
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>

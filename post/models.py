@@ -36,7 +36,6 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=CASCADE, null=True)
     notice = models.ForeignKey(Notice, on_delete=CASCADE, null=True)
     author = models.ForeignKey(User, on_delete=CASCADE)
-    like = models.IntegerField(default=0)
     create_date = models.DateTimeField(auto_created=True)
     
     def __str__(self):

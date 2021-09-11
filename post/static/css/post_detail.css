@@ -33,7 +33,6 @@
     min-height: 10em;
     border-bottom: 1px solid rgb(202, 202, 202);
     padding-bottom: 0.5em;
-    margin-bottom: 1em;
 }
 
 .addition {
@@ -83,14 +82,37 @@
 }
 
 .cwritegroup {
+    border-top: 1px solid rgb(202, 202, 202);
+    border-bottom: 1px solid rgb(202, 202, 202);
+    padding-top: 1em;
+    padding-bottom: 1em;
     margin: 0;
 }
 .commenttextarea {
     width: 100%;
     font-size: 1em;
-    height: 8em;
     resize: none;
     margin: 0;
+    overflow: visible;
+    overflow-y: hidden;
+    line-height: 1.2em;
+    padding-top: .2em;
+    padding-bottom: .2em;
+}
+
+.comment {
+    border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.commentinfo>p {
+    font-size: .75em;
+    margin-bottom: 0;
+}
+
+.commentcontent {
+    font-size: 1em;
+    margin-left: 1em;
+    margin-bottom: 0;
 }
 
 @media (max-width: 768px) {
