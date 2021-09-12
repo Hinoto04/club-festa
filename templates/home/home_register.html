@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block style %}
+<link rel="stylesheet" href="{% static 'css/home_register.css' %}">
 <script src="{% static 'js/home_register.js' %}"></script>
 {% endblock style %}
 {% block content %}
@@ -43,6 +44,9 @@
             <label for="email">이메일</label>
             <input class="form-control" name="email"
                         id="email" rows="10">{{ form.email.value|default_if_none:'' }}</input>
+            <p class="emailverify">회원가입이 정상적으로 이루어지면 인증 이메일이 발송됩니다.</p>
+            <p class="emailverify">이메일 인증 이후 로그인이 가능합니다.</p>
+            <p class="emailverify">이메일 전송에는 시간이 걸릴 수 있습니다.</p>
         </div>
         <div class="form-group">
             <label for="number">학번</label>

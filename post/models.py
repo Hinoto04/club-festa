@@ -3,12 +3,11 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from club.models import Club
 from home.models import User
-
 class Notice(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    publicDate = models.DateTimeField(default=datetime.now(), auto_created=True)
-    hotDate = models.DateTimeField(default=datetime.now(), auto_created=True)
+    publicDate = models.DateTimeField(default=datetime(2021, 9, 12, 0, 0, 0, 0), auto_created=True)
+    hotDate = models.DateTimeField(default=datetime(2021, 9, 12, 0, 0, 0, 0), auto_created=True)
     author = models.ForeignKey(User, on_delete=CASCADE)
     views = models.IntegerField(default=0)
     like = models.IntegerField(default=0)

@@ -2,6 +2,11 @@
 from datetime import datetime
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text
+from .tokens import account_activation_token
 from .forms import UserForm, djangoUserForm, profileForm
 from .models import User
 from django.utils import timezone
@@ -26,7 +31,7 @@ def register(request):
         if form.is_valid():
             form.clean()
             try:
-                checkuser = djangoUser.objects.get(username=form.cleaned_data.get('username'))
+                djangoUser.objects.get(username=form.cleaned_data.get('username'))
             except:
                 userForm = djangoUserForm(request.POST
 #                   username = request.POST.get('username'),
@@ -36,6 +41,9 @@ def register(request):
                 )
                 if userForm.is_valid():
                     nowuser = userForm.save()
+                    nowuser.save()
+                    nowuser.is_active = False
+                    nowuser.save()
                     #nowuser = djangoUser.objects.order_by('id')
                     user = User(name=form.cleaned_data.get('name'), 
                                 number=form.cleaned_data.get('number'),
@@ -47,14 +55,23 @@ def register(request):
                                 interested_in = '',
                                 description = '')
                     user.save()
-                    
+                    message = render_to_string('home/activation_email.html',
+                        {
+                            'user': nowuser,
+                            'domain': request.get_host(),
+                            'uid': urlsafe_base64_encode(force_bytes(nowuser.pk)),
+                            'token': account_activation_token.make_token(nowuser),
+                        })
+                    mail_title = "계정 활성화 확인 이메일"
+                    email = EmailMessage(mail_title, message, to=[nowuser.email])
+                    email.send()
                     
                     #userForm.username = form.username
                     #userForm.password1 = form.password1
                     #userForm.password2 = form.password2
-                    loginuser = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
-                    login(loginuser)
-                    return redirect('home:index')
+                    #loginuser = authenticate(username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
+                    #login(loginuser)
+                    return redirect('home:login')
                     """
                     djangouser = djangoUser(username = form.cleaned_data.get('id'),
                                             password = form.password1,
@@ -65,7 +82,7 @@ def register(request):
                     return render(request, 'error.html', {'text': 
 ["유효하지 않은 값입니다.",
 "1. 비밀번호 확인을 잘못 입력한 경우",
-"2. 비밀번호가 너무 짧거나 안전하지 않은 경우",
+"2. 비밀번호가 너무 짧은 경우",
 "3. 이메일이 이미 사용된 경우",
 ]})
             else:
@@ -112,7 +129,7 @@ def checkmail(request):
         user = None
     result = {
         'result':'success',
-        'data':'not exist' if user is None and request.GET['username'] != '' else 'exist'
+        'data':'not exist' if user is None and len(request.GET['username']) >= 5 else 'exist'
     }
     return JsonResponse(result)
 
@@ -133,3 +150,17 @@ def edit(request):
             return render(request, 'home/home_edit.html', context)
     else:
         return render(request, 'error.html', {'text': ["로그인 되어 있지 않습니다."]})
+    
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = djangoUser.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request)
+        return redirect('home:index')
+    else:
+        return render(request, 'error.html', {'text':['계정 활성화 오류']})
