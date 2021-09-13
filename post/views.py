@@ -102,7 +102,7 @@ def noticedetail(request, notice_id):
         post = Notice.objects.get(id=notice_id)
         post.views += 1
         post.save()
-        comment_list = Comment.objects.filter(post=post)
+        comment_list = Comment.objects.filter(notice=post)
     except:
         return render(request, 'error.html', {'text': ["게시글이 존재하지 않습니다."]})
     context = {
