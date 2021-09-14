@@ -2,8 +2,18 @@
 {% load static %}
 {% block style %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/home_main.css' %}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="{% static 'js/home_main.js' %}"></script>
+<!--해드부분 -->
 {% endblock style %}
 {% block title %}화명고 동아리 행사{% endblock title %}
 {% block content %}
-    
+ <!-- 바디부분 -->
+ <img class="mySlides w3-animate-fading" src="{% static 'img/1.png' %}">
+ <img class="mySlides w3-animate-fading" src="{% static 'img/2.png' %}">
+ <img class="mySlides w3-animate-fading" src="{% static 'img/3.png' %}">
+ <img class="mySlides w3-animate-fading" src="{% static 'img/1.png' %}">
+
+<button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+<button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
 {% endblock content %}
