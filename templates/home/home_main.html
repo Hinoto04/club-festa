@@ -9,11 +9,14 @@
 {% block title %}화명고 동아리 행사{% endblock title %}
 {% block content %}
  <!-- 바디부분 -->
- <img class="mySlides w3-animate-fading" src="{% static 'img/1.png' %}">
- <img class="mySlides w3-animate-fading" src="{% static 'img/2.png' %}">
- <img class="mySlides w3-animate-fading" src="{% static 'img/3.png' %}">
- <img class="mySlides w3-animate-fading" src="{% static 'img/1.png' %}">
+ <div class="main_container">
 
-<button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-<button class="w3-button w3-display-right" onclick="plusDivs(+1)">&#10095;</button>
+<div class="main_title">타이틀</div>
+
+<div class="d-flex flex-row bd-highlight box">
+  <div class="p-2 bd-highlight main_bar">Flex item</div>
+  <div class="p-2 bd-highlight main_bar">Flex item</div>
+</div>
+
+<div class="main_list">리스트</div>
 {% endblock content %}
