@@ -16,7 +16,7 @@ const renderCalender = () => {
   const TLDay = thisLast.getDay();
 
   const prevDates = [];
-  const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+  const thisDates = [...Array(TLDate + 1).keys()].slice(1); 
   const nextDates = [];
 
   if (PLDay !== 6) {
