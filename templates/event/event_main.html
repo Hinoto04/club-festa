@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block style %}
 {% load static %}
-{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static 'css/event_test.css' %}">
+{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static 'css/event_main.css' %}">
 {% endblock style %}
 {% block title %}동아리 행사 목록{% endblock title %}
 {% block content %}
@@ -30,5 +30,5 @@
         <div class="dates"></div>
     </div>
 </div>
-<script src="{% static 'js/event_test.js' %}"></script>
+<script src="{% static 'js/event_main.js' %}"></script>
 {% endblock content %}
