@@ -51,3 +51,7 @@ main_container {
     }
     
     
+.banner {
+    height: 35vw;
+    background-color: yellow;
+}
