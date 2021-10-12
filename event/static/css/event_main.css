@@ -10,8 +10,8 @@ body {
     min-height: 100vh;
 }
 
-.contentblock{
-    width: 110%
+.img{
+    width: 100%
 }
 
 .title {
@@ -21,14 +21,16 @@ body {
 
 .calendar {
     width: 90vw;
+    max-width: 750px;
+    max-height: 750px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    /* top: 4vh; */
-    /* height : fit-content; */
 }
+
 .header {
     width: 90vw;
+    max-width: 750px;
     display: flex;
     justify-content: space-between;
     align-items: center;
