@@ -15,6 +15,7 @@ urlpatterns = [
     path('user/', views.user, name='user'),
     path('user/<int:userid>', views.user, name='user'),
     path('edit/', views.edit, name='edit'),
+    path('manage/', views.manage, name='manage'),
     path('password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
     path('password_change/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),

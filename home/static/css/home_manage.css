@@ -1,0 +1,29 @@
+.title {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.list {
+    width: 80%;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.listindex {
+    font-weight: 500;
+}
+
+.clubname {
+    text-decoration: none;
+    color: black;
+}
+.clubname:hover {
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .list {
+        width: 90%;
+    }
+}

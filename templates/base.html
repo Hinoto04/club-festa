@@ -91,7 +91,7 @@
                             <a class="dropdown-item" href="{% url 'home:user' %}">마이페이지</a>
                             <a class="dropdown-item" href="{% url 'home:edit' %}">마이페이지 수정</a>
                             <a class="dropdown-item" href="{% url 'home:password_change' %}">비밀번호 변경</a>
-                            <a class="dropdown-item" href="#">행사 관리</a>
+                            <a class="dropdown-item" href="{% url 'home:manage' %}">동아리/행사 관리</a>
                             <a class="dropdown-item" href="{% url 'home:logout' %}">로그아웃</a>
                         {% else %}
                             <a class="dropdown-item" href="{% url 'home:login' %}">로그인</a>

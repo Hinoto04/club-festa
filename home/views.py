@@ -150,7 +150,18 @@ def edit(request):
             return render(request, 'home/home_edit.html', context)
     else:
         return render(request, 'error.html', {'text': ["로그인 되어 있지 않습니다."]})
-    
+
+def manage(request):
+    if request.user.is_authenticated:
+        user = User.objects.get(django_user = request.user)
+        club_list = Club.objects.filter(club_master=user)
+        context = {
+            'club_list': club_list
+        }
+        return render(request, 'home/home_manage.html', context)
+    else:
+        return render(request, 'error.html', {'text':['로그인 되어 있지 않습니다.']})
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))

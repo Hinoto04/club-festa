@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/home_manage.css' %}">
+{% endblock style %}
+{% block title %}동아리/행사 관리{% endblock title %}
+{% block content %}
+<div class="d-flex flex-column">
+    <div class="d-flex title justify-content-center">
+        <h2 class="titletext">동아리/행사 관리</h2>
+    </div>
+    <div class="list">
+        <h4 class="listindex">동아리 목록</h4>
+        <ul>
+            {% for club in club_list %}
+                <li><a class="clubname" href="">{{club.name}}</a></li>
+            {% endfor %}
+        </ul>
+        <h4 class="listindex">행사 목록</h4>
+        <ul>
+            {% comment %} {% for club in club_list %}
+                <li><a class="clubname" href="">{{club.name}}</a></li>
+            {% endfor %} {% endcomment %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}
