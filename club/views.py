@@ -1,4 +1,5 @@
 
+import config.settings as settings
 from home.models import User
 from django.shortcuts import render
 from .models import Club
@@ -18,6 +19,7 @@ def index(request):
     official = request.GET.get('official', '2')
     categoryeng = request.GET.get('category', 'all')
     club_list = Club.objects.all()
+    club_list = Club.objects.filter(year=settings.CURRENT_YEAR)
     if categoryeng != 'all':
         club_list = club_list.filter(category=category[categoryeng])
     if official == '0':

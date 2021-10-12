@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+
+from config import pd_setting
 from . import db_setting
 from . import mail_secret
 
@@ -154,3 +156,10 @@ EMAIL_HOST_USER = mail_secret.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = mail_secret.EMAIL_HOST_PASSWORD
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+OFFI_CLUB_REGI_OPEN = pd_setting.OFFI_CLUB_REGI_OPEN
+OFFI_CLUB_REGI_CLOSE = pd_setting.OFFI_CLUB_REGI_CLOSE
+NOOF_CLUB_REGI_OPEN = pd_setting.NOOF_CLUB_REGI_OPEN
+NOOF_CLUB_REGI_CLOSE = pd_setting.NOOF_CLUB_REGI_CLOSE
+
+CURRENT_YEAR = pd_setting.CURRENT_YEAR

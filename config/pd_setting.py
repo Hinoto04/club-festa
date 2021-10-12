@@ -6,7 +6,7 @@ import datetime
 
 #창체동아리 가입기간
 OFFI_CLUB_REGI_OPEN = datetime.date(
-    year = 2022,
+    year = 2021,
     month = 3,
     day = 20
 )
@@ -19,7 +19,7 @@ OFFI_CLUB_REGI_CLOSE = datetime.date(
 
 #자율동아리 가입기간
 NOOF_CLUB_REGI_OPEN = datetime.date(
-    year = 2022,
+    year = 2021,
     month = 4,
     day = 1
 )
@@ -29,3 +29,6 @@ NOOF_CLUB_REGI_CLOSE = datetime.date(
     month = 4,
     day = 7
 )
+
+#현재 학년도
+CURRENT_YEAR = 2021

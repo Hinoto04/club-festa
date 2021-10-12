@@ -10,6 +10,7 @@ class Club(models.Model):
     member = models.IntegerField(default=1)
     member_detail = models.TextField(default='')
     create_date = models.DateTimeField(auto_created=True)
+    year = models.IntegerField(default=2021)
     club_master = models.ForeignKey(User, on_delete=SET_DEFAULT, default='')
     club_teacher = models.CharField(max_length=20, default='')
     club_thumbnail = models.TextField(default='')
