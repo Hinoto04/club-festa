@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load club_filter %}
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/club_detail.css' %}">
 <style>
@@ -29,7 +30,7 @@
                     </div>
                     <div class="clubdetail">
                         <div class='descriptionbox'>
-                            <pre class="description">{{club.description}}</pre>
+                            <pre class="description">{{club.description | mark}}</pre>
                         </div>
 
                         <div class="d-flex flex-wrap justify-content-between clubsecond">
