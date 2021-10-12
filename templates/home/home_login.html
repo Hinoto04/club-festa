@@ -15,13 +15,13 @@
                     value="{{ form.username.value|default_if_none:'' }}">
         </div>
         <div class="form-group">
-            <label for="password">비밀번호</label>
+            <label for="password">비밀번호 <a style="font-size:.75em;"href="{% url 'home:password_reset' %}">(비밀번호를 잊으셨나요?)</a></label>
             <input type="password" class="form-control" name="password" id="password"
                     value="{{ form.password.value|default_if_none:'' }}">
         </div>
         <div class="d-flex">
             <button type="submit" class="btn btn-primary">로그인</button>
-            <a href="{% url 'home:register' %}" class="button btn btn-primary sign-btn">회원가입</a>
+            {% comment %} <a href="{% url 'home:register' %}" class="button btn btn-primary sign-btn">회원가입</a> {% endcomment %}
         </div>
     </form>
 </div>

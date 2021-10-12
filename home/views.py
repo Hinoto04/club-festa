@@ -164,3 +164,6 @@ def activate(request, uidb64, token):
         return redirect('home:index')
     else:
         return render(request, 'error.html', {'text':['계정 활성화 오류']})
+
+def accountcreate(request):
+    return render(request, 'error.html', {'text':['활성화되지 않은 기능입니다.']})
