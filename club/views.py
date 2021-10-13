@@ -1,7 +1,8 @@
 
+from django.http.response import HttpResponse
 import config.settings as settings
 from home.models import User
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Club
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User as djangoUser
@@ -56,3 +57,18 @@ def detail(request, club_id):
             'member_list': member_list,
             }
         return render(request, 'club/club_detail.html', context)
+
+def update(request, club_id):
+    try:
+        club = Club.objects.get(id=club_id)
+    except:
+        return render(request, 'error.html', {'text':['동아리가 존재하지 않습니다.']})
+    else:
+        if request.user.is_authenticated:
+            if club.club_master == User.objects.get(django_user=request.user):
+                if request.method == 'GET':
+                    return render(request, 'club/club_update.html', {'club': club})
+                else:
+                    return redirect('club:detail', club.id)
+            else:
+                return render(request, 'error.html', {'text':['권한이 없습니다.']})

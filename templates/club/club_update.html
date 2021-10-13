@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/club_update.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+{% endblock style %}
+{% block title %}동아리 관리{% endblock title %}
+{% block content %}
+    <div class="d-flex flex-column all">
+        <div class="d-flex justify-content-center titlebox">
+            <h2>{{club.name}} 관리</h2>
+        </div>
+        <div class="d-flex flex-wrap">
+            <div class="d-flex modify information flex-column">
+                <h5>정보 수정</h5>
+                <div class="formbox">
+                    <form method="post" class="post-form my-3" action="{% url 'club:update' club.id %}">
+                        <div class="form-group">
+                            <label for="thumbnail">배너 URL</label>
+                            <input type="text" class="form-control" name="thumbnail" id="thumbnail">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">분류</label>
+                            <select name="category" id="category" class="form-control form-control-sm">
+                                <option value="korean">국어</option>
+                                <option value="math">수학</option>
+                                <option value="english">영어</option>
+                                <option value="science">과학</option>
+                                <option value="society">사회</option>
+                                <option value="etc">기타</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">동아리 소개글</label>
+                            <textarea name="description" type="description" id="Description">{{myuser.description}}</textarea>
+                            <script>
+                                var simplemde = new SimpleMDE({ 
+                                    element: $("#Description")[0],
+                                    spellChecker: false
+                                    });
+                            </script>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex modify member">
+                <h5>동아리원 관리</h5>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

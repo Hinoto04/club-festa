@@ -1,0 +1,31 @@
+.all {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titlebox {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.modify {
+    width: 50%;
+    padding: 1em;
+}
+.information {
+    border-right: 1px solid #000;
+}
+
+
+@media (max-width: 768px) {
+    .all {
+        width: 90%;
+    }
+    .modify {
+        width: 100%;
+    }
+    .information {
+        border: 0;
+    }
+}
