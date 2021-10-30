@@ -17,7 +17,7 @@ from club.models import Club
 
 def findclub(user):
     clubs = []
-    for club in Club.objects.all():
+    for club in Club.objects.filter(year=2021):
         if user.id in map(int, club.member_detail.split(',')):
             clubs.append(club)
     return clubs
