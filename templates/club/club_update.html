@@ -17,9 +17,10 @@
                 <h5>정보 수정</h5>
                 <div class="formbox">
                     <form method="post" class="post-form my-3" action="{% url 'club:update' club.id %}">
+                        {% csrf_token %}
                         <div class="form-group">
                             <label for="thumbnail">배너 URL</label>
-                            <input type="text" class="form-control" name="thumbnail" id="thumbnail">
+                            <input type="text" class="form-control" name="thumbnail" id="thumbnail" value={{club.club_thumbnail}}>
                         </div>
                         <div class="form-group">
                             <label for="category">분류</label>
@@ -34,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">동아리 소개글</label>
-                            <textarea name="description" type="description" id="Description">{{myuser.description}}</textarea>
+                            <textarea name="description" type="description" id="Description">{{club.description}}</textarea>
                             <script>
                                 var simplemde = new SimpleMDE({ 
                                     element: $("#Description")[0],
@@ -42,11 +43,33 @@
                                     });
                             </script>
                         </div>
+                        <button type="submit" class="btn btn-primary">저장하기</button>
                     </form>
                 </div>
             </div>
-            <div class="d-flex modify member">
+            <div class="d-flex modify member flex-column">
                 <h5>동아리원 관리</h5>
+                <div class="appli">
+                    <h6>신청</h6>
+                </div>
+                <div class="member">
+                    <table class="table table-striped memberlist">
+                        <thead>
+                            <tr>
+                            <th scope="col">동아리원 목록 <p>총 인원: {{club.member}}</p></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for member in memberlist %}
+                                <tr>
+                                <td>
+                                    <a href="{% url 'home:user' member.django_user.id %}">{{member.number}} {{member.name}}</a>
+                                </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+                </div>
             </div>
         </div>
     </div>

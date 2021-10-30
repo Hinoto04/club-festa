@@ -67,8 +67,28 @@ def update(request, club_id):
         if request.user.is_authenticated:
             if club.club_master == User.objects.get(django_user=request.user):
                 if request.method == 'GET':
-                    return render(request, 'club/club_update.html', {'club': club})
+                    memberlist = []
+                    for i in map(int,club.member_detail.split(',')):
+                        try:
+                            memberlist.append(User.objects.get(
+                                django_user = djangoUser.objects.get(id=i)
+                            ))
+                        except:
+                            pass
+                    print(memberlist)
+                    context = {
+                        'club': club,
+                        'memberlist': memberlist
+                    }
+                    return render(request, 'club/club_update.html', context)
                 else:
+                    data = request.POST
+                    club.club_thumbnail = str(request.POST.get('thumbnail'))
+                    club.category = category[str(request.POST.get('category'))]
+                    club.description = str(request.POST.get('description'))
+                    club.save()
                     return redirect('club:detail', club.id)
             else:
                 return render(request, 'error.html', {'text':['권한이 없습니다.']})
+        else:
+            return render(request, 'error.html', {'text': ['로그인 되어 있지 않습니다.']})

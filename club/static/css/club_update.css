@@ -17,6 +17,28 @@
     border-right: 1px solid #000;
 }
 
+.memberlist>thead>tr>th {
+    padding: .5em;
+    padding-left: 0.25em;
+}
+.memberlist>thead>tr>th>p {
+    font-size: .75em;
+    margin:0;
+}
+
+.memberlist>tbody>tr>td {
+    padding: .25em;
+    font-size: .75em;
+}
+.memberlist>tbody>tr>td>a {
+    text-decoration: none;
+    color: #000;
+}
+.memberlist>tbody>tr>td>a:hover {
+    text-decoration: none;
+    color: blue;
+}
+
 
 @media (max-width: 768px) {
     .all {
