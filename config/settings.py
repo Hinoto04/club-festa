@@ -188,7 +188,7 @@ LOGGING = {
     'handlers': {
         'console': {
             'level': 'INFO',
-            'filters': ['require_debug_true'],
+            'filters': [],
             'class': 'logging.StreamHandler',
         },
         'django.server': {
@@ -198,17 +198,17 @@ LOGGING = {
         },
         'mail_admins': {
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
+            'filters': [],
             'class': 'django.utils.log.AdminEmailHandler'
         },
         'file': {
             'level': 'INFO',
             'encoding': 'utf-8',
-            'filters': ['require_debug_false'],
+            'filters': [],
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': BASE_DIR / 'logs/mysite.log',
-            'maxBytes': 1024*1024*5,  # 5 MB
-            'backupCount': 5,
+            'maxBytes': 1024*1024*10,  # 10 MB
+            'backupCount': 10,
             'formatter': 'standard',
         },
     },

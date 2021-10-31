@@ -5,3 +5,4 @@ db.sqlite3
 db_setting.py
 mail_secret.py
 *.log
+*.log
