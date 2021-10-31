@@ -17,6 +17,10 @@
     border-right: 1px solid #000;
 }
 
+.managediv {
+    padding-top: 1em;
+}
+
 .memberlist>thead>tr>th {
     padding: .5em;
     padding-left: 0.25em;

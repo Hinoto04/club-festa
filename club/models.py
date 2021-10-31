@@ -9,6 +9,7 @@ class Club(models.Model):
     isofficial = models.BooleanField(default=False)
     member = models.IntegerField(default=1)
     member_detail = models.TextField(default='')
+    appli = models.TextField(default="")
     create_date = models.DateTimeField(auto_created=True)
     year = models.IntegerField(default=2021)
     club_master = models.ForeignKey(User, on_delete=SET_DEFAULT, default='')

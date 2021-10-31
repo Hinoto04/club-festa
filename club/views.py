@@ -75,7 +75,6 @@ def update(request, club_id):
                             ))
                         except:
                             pass
-                    print(memberlist)
                     context = {
                         'club': club,
                         'memberlist': memberlist
