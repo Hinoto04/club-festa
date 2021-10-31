@@ -7,8 +7,7 @@ class HomeAdmin(admin.ModelAdmin):
 admin.site.register(User, HomeAdmin)
 
 class UserLoginLogAdmin(admin.ModelAdmin):
-    list_display = ('user', 'ip_address', 'user_agent',)
+    list_display = ('user', 'ip_address', 'logged')
     list_filter = ('ip_address', )
-    date_hierarchy = 'created'
 
 admin.site.register(UserLoginLog, UserLoginLogAdmin)

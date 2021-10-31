@@ -5,8 +5,10 @@ from club.models import Club
 from django.contrib.auth.models import User as djangoUser
 from django.db.models import Q
 import datetime
+from django.utils import timezone
 from django.shortcuts import redirect, render, reverse
 from django.core.paginator import Paginator
+
 
 def findclub(user):
     clubs = []
@@ -44,8 +46,8 @@ def index(request):
             post_list = Post.objects.order_by('-create_date').filter(q)
         else:
             q = Q()
-            q.add(Q(hotDate__gte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
-            q.add(Q(publicDate__lte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
+            q.add(Q(hotDate__gte=timezone.localtime()), q.AND)
+            q.add(Q(publicDate__lte=timezone.localtime()), q.AND)
             notice_list = Notice.objects.order_by('-create_date').filter(q)[:5]
             post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
     elif filter == 'hot':
@@ -53,8 +55,8 @@ def index(request):
         post_list = Post.objects.order_by('-create_date').filter(isprivate=False, like__gte=5)
     else:
         q = Q()
-        q.add(Q(hotDate__gte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
-        q.add(Q(publicDate__lte=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))), q.AND)
+        q.add(Q(hotDate__gte=timezone.localtime()), q.AND)
+        q.add(Q(publicDate__lte=timezone.localtime()), q.AND)
         notice_list = Notice.objects.order_by('-create_date').filter(q)[:5]
         post_list = Post.objects.order_by('-create_date').filter(isprivate=False)
     if post_list:
@@ -121,7 +123,7 @@ def write(request):
                 isprivate = bool(request.POST.get('isprivate')),
                 author = User.objects.get(django_user=djangoUser.objects.get(id=request.user.id)),
                 club = Club.objects.get(id=request.POST.get('club')),
-                create_date = datetime.datetime.now()
+                create_date = timezone.localtime()
             )
             post.save()
             return redirect(reverse('post:postdetail',args=[post.id]))
@@ -216,7 +218,7 @@ def commentwrite(request, post_id):
                 cmt = Comment(
                     content = str(request.POST.get('description')),
                     author = author,
-                    create_date = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+                    create_date = timezone.localtime()
                 )
                 if request.GET.get('type', 'post') == 'post':
                     cmt.post = post
@@ -237,6 +239,6 @@ def testcase(request):
                     author=User.objects.get(id=1), 
                     views=0, 
                     like=0, 
-                    create_date=datetime.datetime.now())
+                    create_date=timezone.localtime())
         post.save()
     return render(request, 'error.html', {'text': ["테스트케이스 생성 완료"]})

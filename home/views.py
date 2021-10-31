@@ -8,12 +8,13 @@ from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
 from .tokens import account_activation_token
 from .forms import UserForm, djangoUserForm, profileForm
-from .models import User
+from .models import User, UserLoginLog
 from django.utils import timezone
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User as djangoUser
 from django.contrib.auth.forms import UserCreationForm
 from club.models import Club
+from ipware.ip import get_client_ip
 
 def findclub(user):
     clubs = []
@@ -23,6 +24,13 @@ def findclub(user):
     return clubs
 
 def index(request):
+    if request.user.is_authenticated:
+        log = UserLoginLog(
+            user = User.objects.get(django_user=request.user),
+            ip_address = get_client_ip(request),
+            logged = timezone.now()
+        )
+        log.save()
     return render(request, 'home/home_main.html')
 
 def register(request):
@@ -55,6 +63,12 @@ def register(request):
                                 interested_in = '',
                                 description = '')
                     user.save()
+                    log = UserLoginLog(
+                        user = user,
+                        ip_address = get_client_ip(request),
+                        logged = timezone.now()
+                    )
+                    log.save()
                     message = render_to_string('home/activation_email.html',
                         {
                             'user': nowuser,
