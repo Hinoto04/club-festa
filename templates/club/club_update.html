@@ -58,7 +58,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for member in memberlist %}
+                                {% for appli in applilist %}
                                     <tr>
                                     <td>
                                         <a href="{% url 'home:user' member.django_user.id %}">{{member.number}} {{member.name}}</a>

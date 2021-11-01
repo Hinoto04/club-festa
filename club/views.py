@@ -1,5 +1,6 @@
 
 from django.http.response import HttpResponse
+from config.pd_setting import CURRENT_YEAR
 import config.settings as settings
 from home.models import User
 from django.shortcuts import redirect, render
@@ -20,7 +21,7 @@ def index(request):
     official = request.GET.get('official', '2')
     categoryeng = request.GET.get('category', 'all')
     club_list = Club.objects.all()
-    club_list = Club.objects.filter(year=settings.CURRENT_YEAR)
+    club_list = Club.objects.filter(year=CURRENT_YEAR)
     if categoryeng != 'all':
         club_list = club_list.filter(category=category[categoryeng])
     if official == '0':
@@ -75,9 +76,19 @@ def update(request, club_id):
                             ))
                         except:
                             pass
+                    applilist = []
+                    if club.appli != '':
+                        for i in map(int,club.appli.split(',')):
+                            try:
+                                applilist.append(User.objects.get(
+                                    django_user = djangoUser.objects.get(id=i)
+                                ))
+                            except:
+                                pass
                     context = {
                         'club': club,
-                        'memberlist': memberlist
+                        'memberlist': memberlist,
+                        'applilist': applilist
                     }
                     return render(request, 'club/club_update.html', context)
                 else:
@@ -91,3 +102,23 @@ def update(request, club_id):
                 return render(request, 'error.html', {'text':['권한이 없습니다.']})
         else:
             return render(request, 'error.html', {'text': ['로그인 되어 있지 않습니다.']})
+
+def appli(request, club_id):
+    if request.user.is_authenticated:
+        user = request.user
+        try:
+            club = Club.objects.get(id=club_id)
+        except:
+            return render(request, 'error.html', {'text':['동아리가 존재하지 않습니다.']})
+        else:
+            if club.isofficial:
+                for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
+                    if str(user.id) in club.member_detail.split(','):
+                        return render(request, 'error.html', {'text':['이미 동아리에 가입되어 있습니다.']})
+            if str(user.id) in club.member_detail.split(','):
+                return render(request, 'error.html', {'text':['이미 해당 동아리에 가입되어 있습니다.']})
+            if str(user.id) in club.appli.split(','):
+                return render(request, 'error.html', {'text':['이미 해당 동아리에 신청했습니다.']})
+            return redirect('club:detail', club.id)
+    else:
+        return render(request, 'error.html', {'text': ['로그인 되어 있지 않습니다.']})

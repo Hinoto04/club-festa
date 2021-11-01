@@ -6,6 +6,8 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.core.mail import EmailMessage
 from django.utils.encoding import force_bytes, force_text
+
+from config.pd_setting import CURRENT_YEAR
 from .tokens import account_activation_token
 from .forms import UserForm, djangoUserForm, profileForm
 from .models import User, UserLoginLog
@@ -18,7 +20,7 @@ from ipware.ip import get_client_ip
 
 def findclub(user):
     clubs = []
-    for club in Club.objects.filter(year=2021):
+    for club in Club.objects.filter(year=CURRENT_YEAR):
         if user.id in map(int, club.member_detail.split(',')):
             clubs.append(club)
     return clubs
