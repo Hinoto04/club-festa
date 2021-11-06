@@ -2,9 +2,47 @@
 {% load static %}
 {% block style %}
 {{ block.super }}
-<link rel="stylesheet" href="{% static 'css/club_update.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<link rel="stylesheet" href="{% static 'css/club_update.css' %}">
+<script>
+    function accept(i, b) {
+        $.ajax({
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            url:'/club/accept',
+            type:'POST',
+            data: {
+                clubid: {{club.id}},
+                userid: i,
+                bool: b
+            },
+            dataType:'json',
+            success:function(response) {
+                console.log(response);
+                if(response.result == 'success') {
+                    location.reload();
+                } else if(response.result == 'NotLoggedInError') {
+                    alert("로그인 되어 있지 않습니다.")
+                    return;
+                } else if(response.result == 'PermissionError') {
+                    alert("권한이 없습니다.")
+                    return;
+                } else if(response.result == 'ClubNotFoundError') {
+                    alert("동아리가 존재하지 않습니다.")
+                    return;
+                } else if(response.result == 'NotAppliedError') {
+                    alert("신청이 존재하지 않습니다.")
+                    return;
+                }
+            },
+            error:function(xhr, error) {
+                alert("통신 오류입니다.");
+                return;
+            }
+        });
+    }
+</script>
 {% endblock style %}
 {% block title %}동아리 관리{% endblock title %}
 {% block content %}
@@ -54,14 +92,22 @@
                         <table class="table table-striped memberlist">
                             <thead>
                                 <tr>
-                                <th scope="col">동아리 가입 신청 <p></p></th>
+                                <th class="memberheader" scope="col">동아리 가입 신청</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for appli in applilist %}
                                     <tr>
-                                    <td>
-                                        <a href="{% url 'home:user' member.django_user.id %}">{{member.number}} {{member.name}}</a>
+                                    <td class="memberbox">
+                                        <div class="d-flex">
+                                            <div class="d-flex flex-grow-1">
+                                                <a class="membername" href="{% url 'home:user' appli.django_user.id %}">{{appli.number}} {{appli.name}}</a>
+                                            </div>
+                                            <div class="d-flex">
+                                                <button class="applibtn acceptbtn" onclick="accept({{appli.django_user.id}}, true)"><i class="fas fa-sm fa-check"></i></button>
+                                                <button class="applibtn refusebtn" onclick="accept({{appli.django_user.id}}, false)"><i class="fas fa-sm fa-times"></i></button>
+                                            </div>
+                                        </div>
                                     </td>
                                     </tr>
                                 {% endfor %}
@@ -73,14 +119,14 @@
                         <table class="table table-striped memberlist">
                             <thead>
                                 <tr>
-                                <th scope="col">동아리원 목록 <p>총 인원: {{club.member}}</p></th>
+                                <th class="memberheader" scope="col">동아리원 목록 <p class="membernum">총 인원: {{club.member}}</p></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for member in memberlist %}
                                     <tr>
-                                    <td>
-                                        <a href="{% url 'home:user' member.django_user.id %}">{{member.number}} {{member.name}}</a>
+                                    <td class="memberbox">
+                                        <a class="membername" href="{% url 'home:user' member.django_user.id %}">{{member.number}} {{member.name}}</a>
                                     </td>
                                     </tr>
                                 {% endfor %}
