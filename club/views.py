@@ -112,6 +112,8 @@ def appli(request, club_id):
         except:
             return render(request, 'error.html', {'text':['동아리가 존재하지 않습니다.']})
         else:
+            if club.year != CURRENT_YEAR:
+                return render(request, 'error.html', {'text':['올해 동아리에만 가입할 수 있습니다.']})
             if club.isofficial:
                 for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
                     if c.member_detail != '' and str(user.id) in c.member_detail.split(','):
@@ -144,21 +146,21 @@ def accept(request):
                     club.appli = ','.join(d)
                 else:
                     return JsonResponse({"result":"NotAppliedError"})
-                print(request.POST.get('bool'))
-                if club.member_detail != '':
-                    a = club.member_detail.split(',')
-                else:
-                    a = []
-                a.append(str(userid))
-                club.member_detail = ','.join(a)
-                if club.isofficial:
-                    for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
-                        if c.appli != '' and str(userid) in c.appli.split(','):
-                            b = c.appli.split(',')
-                            b.remove(str(userid))
-                            c.appli = ','.join(b)
-                            c.save()
-                club.save()
+                if request.POST.get('bool') == 'true':
+                    if club.member_detail != '':
+                        a = club.member_detail.split(',')
+                    else:
+                        a = []
+                    a.append(str(userid))
+                    club.member_detail = ','.join(a)
+                    if club.isofficial:
+                        for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
+                            if c.appli != '' and str(userid) in c.appli.split(','):
+                                b = c.appli.split(',')
+                                b.remove(str(userid))
+                                c.appli = ','.join(b)
+                                c.save()
+                    club.save()
                 return JsonResponse({"result":"success"})
             else:
                 return JsonResponse({"result":"PermissionError"})

@@ -59,7 +59,6 @@ td.memberbox {
     color: red;
 }
 
-
 @media (max-width: 768px) {
     .all {
         width: 90%;

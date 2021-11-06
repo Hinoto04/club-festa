@@ -80,14 +80,16 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% if user.is_authenticated %}
+                            <div class="d-flex applibox justify-content-center">
+                                <a class="btn btn-secondary" href="{% url 'club:appli' club.id %}">가입신청</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
-    
-    
 </div>
 {% else %}
     <h1>동아리 상세 정보 로딩에 실패했습니다.</h1>
