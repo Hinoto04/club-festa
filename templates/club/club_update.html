@@ -22,8 +22,17 @@
                 console.log(response);
                 if(response.result == 'success') {
                     location.reload();
-                } else {
-                    alert("실패했습니다.")
+                } else if(response.result == 'NotLoggedInError') {
+                    alert("로그인 되어 있지 않습니다.")
+                    return;
+                } else if(response.result == 'PermissionError') {
+                    alert("권한이 없습니다.")
+                    return;
+                } else if(response.result == 'ClubNotFoundError') {
+                    alert("동아리가 존재하지 않습니다.")
+                    return;
+                } else if(response.result == 'NotAppliedError') {
+                    alert("신청이 존재하지 않습니다.")
                     return;
                 }
             },
