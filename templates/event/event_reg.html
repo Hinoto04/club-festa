@@ -5,9 +5,11 @@
 {% endblock style %}
 {% block title %}동아리 행사 등록{% endblock title %}
 {% block content %}
-<form method="REG">
+<div class="formbox">
+    <form method="post" class="post-form my-3" action="{% url 'event:registration'%}">
         {% csrf_token %}
         {{event_form.as_p}}
         <input type="submit" value = "등록">
     </form>
+</div>
 {% endblock content %}

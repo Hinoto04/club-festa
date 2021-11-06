@@ -8,7 +8,7 @@ class Event(models.Model):
     host = models.ForeignKey(Club, on_delete=CASCADE) #주최자명(외래키), Club 참조
     content = models.TextField() #행사내용
     
-    start_date = models.DateTimeField(default=datetime(2021, 9, 12, 0, 0, 0, 0), auto_created=True) #행사시작일
-    end_date = models.DateTimeField(default=datetime(2021, 9, 12, 0, 0, 0, 0), auto_created=True) #행사끝나는일
+    start_date = models.DateTimeField(default=datetime.now(), auto_created=True) #행사시작일
+    end_date = models.DateTimeField(default=datetime.now(), auto_created=True) #행사끝나는일
     
     place  = models.CharField(default='', max_length=100) #장소

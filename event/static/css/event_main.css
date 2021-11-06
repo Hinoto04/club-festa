@@ -40,6 +40,13 @@ body {
     font-size: 20px;
 }
 
+.registration{
+    display: flex;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    background-color: #ff887f;
+}
+
 .nav {
     display: flex;
     border: 1px solid #333333;
