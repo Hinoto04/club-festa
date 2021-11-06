@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load sass_tags %}
+{% load compress %}
 {% block style %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/home_main.css' %}">
-<link rel="stylesheet"type="text/css"href="{%sass_src'sass/home_main.sass'%}">
-<link rel="stylesheet" href="{% static 'sass/home_main.sass' %}">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="{% static 'js/home_main.js' %}"></script>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<!--
+<script src="assets/js/jquery.poptrox.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+-->
 <!--해드부분 -->
 {% endblock style %}
+{% compress css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'css/home_main.scss' %}">
+{% endcompress %}
 {% block title %}화명고 동아리 행사{% endblock title %}
 {% block content %}
  <!-- 바디부분 -->
@@ -78,15 +87,6 @@
 					</ul>
 				</div>
 			</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
 <div id="calendar-wrap">
         <header>
           <h1>December 2017</h1>
