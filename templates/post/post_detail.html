@@ -71,7 +71,7 @@
             <h6 class="title">{{post.title}}</h6>
             <div class="d-flex justify-content-between infos">
                 <div class="infofirst d-flex">
-                    <p class="infodetail author">{{post.author}}</p>
+                    <a class="infodetail author" href="{% url 'home:user' post.author.django_user.id %}">{{post.author}}</a>
                     <p class="infodetail notmobile">{{post.create_date}}</p>
                 </div>
                 <div class="infosecond d-flex">

@@ -1,5 +1,5 @@
 
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, JsonResponse
 from config.pd_setting import CURRENT_YEAR
 import config.settings as settings
 from home.models import User
@@ -114,12 +114,56 @@ def appli(request, club_id):
         else:
             if club.isofficial:
                 for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
-                    if str(user.id) in club.member_detail.split(','):
+                    if c.member_detail != '' and str(user.id) in c.member_detail.split(','):
                         return render(request, 'error.html', {'text':['이미 동아리에 가입되어 있습니다.']})
-            if str(user.id) in club.member_detail.split(','):
+            if club.member_detail != '' and str(user.id) in club.member_detail.split(','):
                 return render(request, 'error.html', {'text':['이미 해당 동아리에 가입되어 있습니다.']})
-            if str(user.id) in club.appli.split(','):
-                return render(request, 'error.html', {'text':['이미 해당 동아리에 신청했습니다.']})
+            if club.appli != '' and str(user.id) in club.appli.split(','):
+                return render(request, 'error.html', {'text':['이미 해당 동아리에 신청했습니다.']}) 
+            a = club.appli.split(',')
+            a.append(str(user.id))
+            club.appli = ','.join(a)
+            club.save()
             return redirect('club:detail', club.id)
     else:
         return render(request, 'error.html', {'text': ['로그인 되어 있지 않습니다.']})
+
+def accept(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            user = request.user
+            try:
+                club = Club.objects.get(id=request.POST.get('clubid'))
+            except:
+                return JsonResponse({"result":"ClubNotFoundError"})
+            if club.club_master == User.objects.get(django_user=user):
+                userid = request.POST.get('userid')
+                if club.appli != '' and str(userid) in club.appli.split(','):
+                    d = club.appli.split(',')
+                    d.remove(str(userid))
+                    club.appli = ','.join(d)
+                else:
+                    return JsonResponse({"result":"NotAppliedError"})
+                print(request.POST.get('bool'))
+                if club.member_detail != '':
+                    a = club.member_detail.split(',')
+                else:
+                    a = []
+                a.append(str(userid))
+                club.member_detail = ','.join(a)
+                if club.isofficial:
+                    for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
+                        if c.appli != '' and str(userid) in c.appli.split(','):
+                            b = c.appli.split(',')
+                            b.remove(str(userid))
+                            c.appli = ','.join(b)
+                            c.save()
+                club.save()
+                return JsonResponse({"result":"success"})
+            else:
+                return JsonResponse({"result":"PermissionError"})
+        else:
+            return JsonResponse({"result":"NotLoggedInError"})
+    else:
+        return render(request, 'error.html', {'text':['이 페이지는 비활성화 되어 있습니다.']})
+        
