@@ -60,6 +60,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
+INSTALLED_APPS = [
+
+'sass_processor',
+]
+SASS_ROOT = os.path.join(BASE_DIR,'static')
+SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR,'static')
+SASS_OUTPUT_STYLE='compact'
+STATICFILES_FINDERS = (
+ 'django.contrib.staticfiles.files.finders.FileSystenFinder',
+ 'django.contrib.staticfiles.files.finders.AppDirectoriesFinder',
+ 'sass_processor.finders.CssFinder',
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
