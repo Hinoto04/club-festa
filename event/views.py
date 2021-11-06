@@ -9,11 +9,11 @@ def index(request):
     return render(request, 'event/event_main.html')
 
 def registration(request):
-    if request.method == "REG":
-        event_form = EventForm(request.REG)
+    if request.method == "POST":
+        event_form = EventForm(request.POST)
         if event_form.is_valid():
             event_form.save()
-            return redirect('index') # 행사 등록 후 쓰고 달력으로 돌아감
-    else:
-        event_form = EventForm()
-    return render(request,'event/event_reg.html',{'event_form':event_form})
+            return redirect('event:index') # 행사 등록 후 쓰고 달력으로 돌아감
+        else:
+            print(event_form)
+    return render(request,'event/event_reg.html',{'event_form':EventForm()})
