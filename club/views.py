@@ -44,15 +44,16 @@ def detail(request, club_id):
     except:
         return render(request, 'error.html', {'text': "동아리가 존재하지 않습니다."})
     else:
-        member_ids = club.member_detail.split(',')
         member_list = []
-        for member_id in member_ids:
-            try:
-                member = User.objects.get(django_user = djangoUser.objects.get(id=member_id))
-            except:
-                pass
-            else:
-                member_list.append(member)
+        if club.member_detail != '':
+            member_ids = club.member_detail.split(',')
+            for member_id in member_ids:
+                try:
+                    member = User.objects.get(django_user = djangoUser.objects.get(id=member_id))
+                except:
+                    pass
+                else:
+                    member_list.append(member)
         context = {
             'club':club,
             'member_list': member_list,
@@ -69,13 +70,14 @@ def update(request, club_id):
             if club.club_master == User.objects.get(django_user=request.user):
                 if request.method == 'GET':
                     memberlist = []
-                    for i in map(int,club.member_detail.split(',')):
-                        try:
-                            memberlist.append(User.objects.get(
-                                django_user = djangoUser.objects.get(id=i)
-                            ))
-                        except:
-                            pass
+                    if club.member_detail != '':
+                        for i in map(int,club.member_detail.split(',')):
+                            try:
+                                memberlist.append(User.objects.get(
+                                    django_user = djangoUser.objects.get(id=i)
+                                ))
+                            except:
+                                pass
                     applilist = []
                     if club.appli != '':
                         for i in map(int,club.appli.split(',')):
@@ -92,7 +94,6 @@ def update(request, club_id):
                     }
                     return render(request, 'club/club_update.html', context)
                 else:
-                    data = request.POST
                     club.club_thumbnail = str(request.POST.get('thumbnail'))
                     club.category = category[str(request.POST.get('category'))]
                     club.description = str(request.POST.get('description'))
