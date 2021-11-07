@@ -5,8 +5,8 @@ const renderCalender = () => {
   const viewMonth = date.getMonth();
 
   document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`;
-  
-  document.querySelector('.registration').textContent = `행사 등록하기`;
+
+  document.querySelector('.registration').textContent = `행사 등록하기`; //행사 등록 부분
 
 
   const prevLast = new Date(viewYear, viewMonth, 0);

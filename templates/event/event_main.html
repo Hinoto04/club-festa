@@ -1,9 +1,10 @@
+
 {% extends 'base.html' %}
 {% block style %}
 {% load static %}
 {{ block.super }}<link rel="stylesheet" type="text/css" href="{% static 'css/event_main.css' %}">
 {% endblock style %}
-{% block title %}동아리 행사 목록{% endblock title %}
+{% block title %}동아리 행사 일정{% endblock title %}
 {% block content %}
 <div class="d-flex box justify-comtent-center">
     <div class="calendar">
@@ -12,7 +13,7 @@
         </div>
         <div class="header">
             <div class="year-month"></div>
-            <div class="registration"></div>
+            <div class="registration"></div>  
             <div class="nav">
             <button class="nav-btn go-prev" onclick="prevMonth()">&lt;</button>
             <button class="nav-btn go-today" onclick="goToday()">Today</button>
