@@ -1,4 +1,5 @@
 
+from django.core.mail.message import EmailMessage
 from django.http.response import HttpResponse, JsonResponse
 from config.pd_setting import CURRENT_YEAR
 import config.settings as settings
@@ -155,28 +156,38 @@ def accept(request):
                 return JsonResponse({"result":"ClubNotFoundError"})
             if club.club_master == User.objects.get(django_user=user):
                 userid = request.POST.get('userid')
-                if club.appli != '' and str(userid) in club.appli.split(','):
-                    d = club.appli.split(',')
-                    d.remove(str(userid))
-                    club.appli = ','.join(d)
+                try:
+                    appli = djangoUser.objects.get(id=userid)
+                except:
+                    return JsonResponse({'result':'NotExistUserError'})
                 else:
-                    return JsonResponse({"result":"NotAppliedError"})
-                if request.POST.get('bool') == 'true':
-                    if club.member_detail != '':
-                        a = club.member_detail.split(',')
+                    if club.appli != '' and str(userid) in club.appli.split(','):
+                        d = club.appli.split(',')
+                        d.remove(str(userid))
+                        club.appli = ','.join(d)
                     else:
-                        a = []
-                    a.append(str(userid))
-                    club.member_detail = ','.join(a)
-                    if club.isofficial:
-                        for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
-                            if c.appli != '' and str(userid) in c.appli.split(','):
-                                b = c.appli.split(',')
-                                b.remove(str(userid))
-                                c.appli = ','.join(b)
-                                c.save()
+                        return JsonResponse({"result":"NotAppliedError"})
+                    if request.POST.get('bool') == 'true':
+                        if club.member_detail != '':
+                            a = club.member_detail.split(',')
+                        else:
+                            a = []
+                        a.append(str(userid))
+                        club.member_detail = ','.join(a)
+                        if club.isofficial:
+                            for c in Club.objects.filter(isofficial=True).filter(year=CURRENT_YEAR):
+                                if c.appli != '' and str(userid) in c.appli.split(','):
+                                    b = c.appli.split(',')
+                                    b.remove(str(userid))
+                                    c.appli = ','.join(b)
+                                    c.save()
+                        email = EmailMessage(f'{club.name} 가입 신청 수락 통보', f'{club.name}의 동아리원이 되신 것을 축하합니다.\n앞으로 성실한 활동 부탁드립니다.', to=[appli.email])
+                        email.send()
+                    else:
+                        email = EmailMessage(f'{club.name} 가입 신청 거부 통보', f'귀하의 {club.name}에의 신청이 거부되었습니다. 다른 동아리에 신청 바랍니다.', to=[appli.email])
+                        email.send()
                     club.save()
-                return JsonResponse({"result":"success"})
+                    return JsonResponse({"result":"success"})
             else:
                 return JsonResponse({"result":"PermissionError"})
         else:
