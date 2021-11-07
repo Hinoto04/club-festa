@@ -6,7 +6,8 @@ from .models import Event
 from .forms import EventForm
 
 def index(request):
-    return render(request, 'event/event_main.html')
+    all_event = Event.objects.all()
+    return render(request, 'event/event_main.html', {'all_event':all_event})
 
 def registration(request):
     if request.method == "POST":
