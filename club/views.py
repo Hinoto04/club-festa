@@ -126,7 +126,22 @@ def appli(request, club_id):
             a.append(str(user.id))
             club.appli = ','.join(a)
             club.save()
-            return redirect('club:detail', club.id)
+            member_list = []
+            if club.member_detail != '':
+                member_ids = club.member_detail.split(',')
+                for member_id in member_ids:
+                    try:
+                        member = User.objects.get(django_user = djangoUser.objects.get(id=member_id))
+                    except:
+                        pass
+                    else:
+                        member_list.append(member)
+            context = {
+                'club':club,
+                'member_list': member_list,
+                'bool': True,
+                }
+            return render(request, 'club/club_detail.html', context)
     else:
         return render(request, 'error.html', {'text': ['로그인 되어 있지 않습니다.']})
 

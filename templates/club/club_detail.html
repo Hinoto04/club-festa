@@ -91,6 +91,13 @@
         </div>
     </div>
 </div>
+{% if bool %}
+<script>
+    window.onload = function() {
+        alert('가입신청을 완료했습니다. \n동아리장이 프로필을 보고 수락 여부를 결정합니다.')
+    }
+</script>
+{% endif %}
 {% else %}
     <h1>동아리 상세 정보 로딩에 실패했습니다.</h1>
 {% endif %}
