@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% block style %}
 {% load static %}
+{% load event_filter %}
 {{ block.super }}<link rel="stylesheet" type="text/css" href="{% static 'css/event_main.css' %}">
 {% endblock style %}
 {% block title %}동아리 행사 일정{% endblock title %}
@@ -39,9 +40,9 @@
                 <tr>
                 {% for day in week %}
                     <td>
-                        {{day.date}}
+                        {{day.date | strf}}
                         <ul>
-                        {% for event in day %}
+                        {% for event in day.event %}
                             <li>
                                 {{event.title}}
                             </li>
@@ -53,14 +54,14 @@
                 {% endfor %}
             </tbody>
         </table>
-        <div class="flex-column">
+        <div class="d-flex flex-column mobile-calendar">
             {% for week in month %}
             {% for day in week %}
             <div class="day">
-            {{day.date}}
-            <ul>
-            {% for event in day %}
-                <li>
+            {{day.date | strf}}
+            <ul class="list-group list-group-flush">
+            {% for event in day.event %}
+                <li class="list-group-item event-li">
                     {{event.title}}
                 </li>
             {% endfor %}

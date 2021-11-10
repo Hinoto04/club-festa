@@ -14,3 +14,6 @@ class Event(models.Model):
     end_date = models.DateTimeField(default=datetime.now(), auto_created=True) #행사끝나는일
     
     place  = models.CharField(default='', max_length=100) #장소
+    
+    def __str__(self):
+        return self.title

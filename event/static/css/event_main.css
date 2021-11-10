@@ -33,6 +33,11 @@ body {
     margin-right: auto;
     margin-top: 20px;
 }
+.mobile-calendar {
+    margin-top: 1em;
+    display: none;
+    width:100%;
+}
 
 .header {
     max-width: 750px;
@@ -62,79 +67,27 @@ body {
 .nav {
     display: flex;
     border: 1px solid #333333;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .nav-btn {
     padding: .25em;
 }
 
-.go-today {
-    width: 60px;
-    border-left: 1px solid #333333;
-    border-right: 1px solid #333333;
-}
-
-.days {
-    display: flex;
-    margin: 2vw 0 1vw;
+.pc-calendar{
+    height: 70vw;
+    margin: 0em auto;
+    max-width: 850px;
+    max-height: 700px;
 }
 
 .day {
-    width: calc(100% / 7);
-    font-size: 20px;
-    text-align: center;
+    width: 100%;
+    border: 1px solid gray;
 }
-
-.dates {
-    display: flex;
-    flex-flow: row wrap;
-    height: 70vw;
-    margin: 0em auto;
-    border-top: 2px solid #333333;
-    border-right: 2px solid #333333;
-    max-width: 750px;
-    max-height: 600px;
-}
-
-.date {
-    width: calc(100% / 7);
-    text-align: center;
-    font-size: 20px;
-    border-bottom: 2px solid #333333;
-    border-left: 2px solid #333333;
-}
-
-.day:nth-child(7n + 1),
-.date:nth-child(7n + 1) {
-    color: #FF5252;
-}
-
-.day:nth-child(7n),
-.date:nth-child(7n) {
-    color: #1565C0;
-}
-
-.today {
-    position: relative;
-    color: #000000;
-}
-.today::before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: -1;
-    display: block;
-    width: 25px;
-    height: 25px;
-    background-color: #FFE57F;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    content: '';
-}
-
-.other {
-    opacity: .3;
+.event-li {
+    padding: 0;
+    padding-left: .5em;
 }
 
 @media (max-width: 768px) {
