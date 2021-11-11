@@ -81,6 +81,17 @@ body {
     max-height: 700px;
 }
 
+.pc-calendar:nth-col(7n + 1){
+    color: #D13E3E;
+}
+
+.pc-calendar:nth-col(7n) {
+    color: #396EE2;
+}
+.pc-calendar:scope {
+    color: #D13E3E;
+}
+
 .day {
     width: 100%;
     border: 1px solid gray;
