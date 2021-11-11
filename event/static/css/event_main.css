@@ -52,11 +52,11 @@ body {
 
 .registration{
     display: flex;
-    border: 2px solid #333333;
+    border: 2px solid #DCE2F0;
     border-radius: 5px;
-    background-color: #ff887f;
+    background-color: #50586C;
     padding: 0;
-    color: black;
+    color: #DCE2F0;
     text-decoration: none;
 }
 .registration:hover {
@@ -79,18 +79,28 @@ body {
     margin: 0em auto;
     max-width: 850px;
     max-height: 700px;
+    
 }
 
-.pc-calendar:nth-col(7n + 1){
-    color: #D13E3E;
+.weekend>td:nth-child(7n+1)>p, .weekend>th:nth-child(7n+1) {
+    color: #ed6a66;
 }
 
-.pc-calendar:nth-col(7n) {
-    color: #396EE2;
+.weekend>td:nth-child(7n)>p, .weekend>th:nth-child(7n) {
+    color: #00239C;
 }
-.pc-calendar:scope {
-    color: #D13E3E;
+
+.day:nth-child(7n+1)>p{
+    color: #ed6a66;
 }
+.day:nth-child(7n)>p{
+    color: #00239C;
+}
+
+.datetext {
+    margin: 0;
+}
+
 
 .day {
     width: 100%;

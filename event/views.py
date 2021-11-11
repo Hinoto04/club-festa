@@ -25,7 +25,7 @@ def index(request, event_month=None):
     
     #대충 첫 날짜
     if event_month:
-        startdate = datetime.strptime(str(event_month),'%Y%m').date()
+        startdate = datetime.strptime(str(event_month),'%Y%m')
     else:
         today = timezone.localtime()
         startdate = date(year = today.year, month = today.month, day=1)
@@ -33,32 +33,26 @@ def index(request, event_month=None):
     mt = (startdate.weekday()+1)%7 # 월요일==0+1 .... 일요일==6+1
     year_month = startdate.strftime("%Y-%m")
     startdate = startdate - timedelta(days = mt)  #달력의 공칸 만큼 시작일 연기()
-
-    month = []  #month에 주별로 day 추가
-    for i in range(5):
-        week = []
-        for j in range(7):
-            week.append(day(startdate + timedelta(days = i*7 + j)))
-        month.append(week)
+    
     sd = datetime.combine(startdate, time(), tz(timedelta(hours=9)))
     events = Event.objects.filter(start_date__gte=sd).filter(end_date__lte=sd+timedelta(days=35)).order_by('start_date')
     
-    month2 = []
+    month = []
     for i in range(35):
-        month2.append(day(startdate + timedelta(days = i)))
+        month.append(day(startdate + timedelta(days = i)))
     for event in events:
-        for d in month2:
-            if event.start_date.date() <= d.date <= event.end_date.date():
+        for d in month:
+            if event.start_date <= d.date <= event.end_date:
                 d.event.append(event)
-            if d.date == event.end_date.date():
+            if d.date == event.end_date:
                 break
-    month2 = np.reshape(month2, (5,7))
+    month = np.reshape(month, (5,7))
     #    날짜 확인 후 해당 날짜에 event 추가
     #    기간제인 경우 해당 기간의 모든 날짜에 event 추가
     
     context = {
         'year_month': year_month, 
-        'month': month2
+        'month': month
     }
     return render(request, 'event/event_main.html', context)
 

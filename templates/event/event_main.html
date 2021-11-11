@@ -25,25 +25,25 @@
     <div class="d-flex">
         <table class="table table-bordered pc-calendar">
             <thead>
-                <tr>
-                    <th scope="cols">일</th>
+                <tr class="weekend">
+                    <th scope="col">일</th>
                     <th scope="col">월</th>
                     <th scope="col">화</th>
                     <th scope="col">수</th>
                     <th scope="col">목</th>
                     <th scope="col">금</th>
-                    <th scope="cols">토</th>
+                    <th scope="col">토</th>
                 </tr>
             </thead>
             <tbody>
                 {% for week in month %}
-                <tr>
+                <tr class="weekend">
                 {% for day in week %}
                     <td>
-                        {{day.date | strf}}
-                        <ul>
+                        <p class="datetext">{{day.date | strf}}</p>
+                        <ul class="list-group list-group-flush">
                         {% for event in day.event %}
-                            <li>
+                            <li class="list-group-item event-li">
                                 {{event.title}}
                             </li>
                         {% endfor %}
@@ -54,19 +54,19 @@
                 {% endfor %}
             </tbody>
         </table>
-        <div class="d-flex flex-column mobile-calendar">
+        <div class="flex-column mobile-calendar">
             {% for week in month %}
             {% for day in week %}
-            <div class="day">
-            {{day.date | strf}}
-            <ul class="list-group list-group-flush">
-            {% for event in day.event %}
-                <li class="list-group-item event-li">
-                    {{event.title}}
-                </li>
-            {% endfor %}
-            </ul>
-            </div>
+                <div class="day">
+                    <p class="datetext">{{day.date | strf}}</p>
+                    <ul class="list-group list-group-flush">
+                    {% for event in day.event %}
+                        <li class="list-group-item event-li">
+                            {{event.title}}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
             {% endfor %}
             {% endfor %}
         </div>
