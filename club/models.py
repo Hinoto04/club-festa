@@ -4,12 +4,12 @@ from home.models import User
 
 class Club(models.Model):
     name = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     category = models.CharField(max_length=20, default='기타')
     isofficial = models.BooleanField(default=False)
     member = models.IntegerField(default=1)
-    member_detail = models.TextField(default='')
-    appli = models.TextField(default="")
+    member_detail = models.TextField(default='', null=True, blank=True)
+    appli = models.TextField(default="", null=True, blank=True)
     create_date = models.DateTimeField(auto_created=True)
     year = models.IntegerField(default=2021)
     club_master = models.ForeignKey(User, on_delete=SET_DEFAULT, default='')

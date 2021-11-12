@@ -14,10 +14,10 @@ class User(models.Model):
     email = models.EmailField()
     profile_message = models.CharField(max_length=200, default=' ')
     interested_in = models.CharField(max_length=20, default=' ')
-    description = models.TextField(default=' ')
+    description = models.TextField(default='', blank=True, null=True)
     lastedit = models.DateField(auto_now=True, auto_now_add=False)
-    like = models.TextField(default='/')
-    noticelike = models.TextField(default='/')
+    like = models.TextField(default='/', null=True, blank=True)
+    noticelike = models.TextField(default='/', null=True, blank=True)
 
     def __str__(self):
         if self.type == 'Student':
