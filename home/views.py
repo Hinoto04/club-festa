@@ -17,6 +17,11 @@ from django.contrib.auth.models import User as djangoUser
 from django.contrib.auth.forms import UserCreationForm
 from club.models import Club
 from ipware.ip import get_client_ip
+from post.models import Notice, Post
+from django.db.models import Q
+import numpy as np
+from event.models import Event
+from datetime import timedelta, date, time, timezone as tz
 
 def findclub(user):
     clubs = []
@@ -26,6 +31,18 @@ def findclub(user):
     return clubs
 
 def index(request):
+    class day():
+        
+        def __init__(self, date):
+            self.date = date
+            self.event = False
+        
+        def __str__(self):
+            return self.event
+        
+        def __repr__(self):
+            return str(self.event)
+        
     if request.user.is_authenticated:
         log = UserLoginLog(
             user = User.objects.get(django_user=request.user),
@@ -33,7 +50,41 @@ def index(request):
             logged = timezone.now()
         )
         log.save()
-    return render(request, 'home/home_main.html')
+    q = Q()
+    q.add(Q(hotDate__gte=timezone.localtime()), q.AND)
+    q.add(Q(publicDate__lte=timezone.localtime()), q.AND)
+    notice_list = Notice.objects.order_by('-create_date').filter(q)[:3]
+    hot_list = Post.objects.order_by('-create_date').filter(isprivate=False, like__gte=5)[:3]
+    
+    #행사 목록 불러오는 코드
+    today = timezone.localtime()
+    startdate = date(year = today.year, month = today.month, day=1)
+    
+    mt = (startdate.weekday()+1)%7 # 월요일==0+1 .... 일요일==6+1
+    year_month = startdate.strftime("%Y-%m")
+    startdate = startdate - timedelta(days = mt)  #달력의 공칸 만큼 시작일 연기()
+    
+    sd = datetime.combine(startdate, time(), tz(timedelta(hours=9)))
+    events = Event.objects.filter(start_date__gte=sd).filter(end_date__lte=sd+timedelta(days=35)).order_by('start_date')
+    
+    month = []
+    for i in range(35):
+        month.append(day(startdate + timedelta(days = i)))
+    for event in events:
+        for d in month:
+            if event.start_date <= d.date <= event.end_date:
+                d.event = True
+            if d.date == event.end_date:
+                break
+    month = np.reshape(month, (5,7))
+    
+    #html로 보낼 거
+    context = {
+        'notice_list': notice_list,
+        'hot_list': hot_list,
+        'month': month,
+    }
+    return render(request, 'home/home_main.html', context)
 
 def register(request):
     if request.method == 'POST':
