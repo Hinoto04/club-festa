@@ -12,6 +12,11 @@
       background-image: url("json/home_pic.json");
     }
 </style> {% endcomment %}
+<style type="text/css">
+	body {
+		background-color: #F3FFFF;
+	}
+</style>
 <script src={% static 'js/vue.js' %}></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -22,6 +27,13 @@
 {% block title %}화명고 동아리 행사{% endblock title %}
 {% block content %}
  <!-- 바디부분 -->
+<a href="http://localhost:8000/club/%22%3E"<img src="{% static 'png/hw' %}" ></a>
+
+ <a href="http://localhost:8000/event/%22%3E"<img src="{% static 'png/hwa' %}" ></a>
+
+ <a href="http://localhost:8000/post/%22%3E"<img src="{% static 'png/hhwa' %}" ></a>
+
+
  <div class="slideshow">
   <div class="slideshow__container js-home_main_sub">
   	
@@ -37,10 +49,6 @@
     />
   </div>
 </div>
-{% comment %} <div class="hwamyeong" id="top">
-	<div class="hwamyeong-image"></div>
-	<h1>화명고등학교 사이트 입니다.</h1>
-</div> {% endcomment %}
 <nav class="hwa-nav">
 	<div class="navbar-wrapper">
 		<nav>
@@ -48,8 +56,8 @@
 				<ul>
 					<li class="action-item"><a href=""><p>P</p></a></li>
 					<li class="item"><a href="#동아리"><p>동아리</p></a></li>
-					<li class="item"><a href="#기타"><p>기타</p></a></li>
-					<li class="item"><a href="#뭐함지"><p>뭐함지</p></a></li>
+					<li class="item"><a href="#행사"><p>행사</p></a></li>
+					<li class="item"><a href="#게시판"><p>게시판</p></a></li>
 				</ul>
 			</div>
 		</nav>
@@ -58,24 +66,26 @@
 <section id="동아리">
 	<div class="content">
 		<h1>동아리</h1>
-		<h2>저희 학교에는 여러 동아리들이 존재합니다!</h2>
-		<p>대충내용내용</p>
-		<p>한 두줄 쓰지 않을까?</p>
+		<h2>______</h2>
+		<p>저희 학교에는 여러 동아리들이 존재합니다. 과학, 생태, 경제, 예술, 기술, 스포츠, 댄스 등</p>
+    <p>다양한 분야로 학생들의 주도하는 동아리들이 개설되어 있습니다. 원하는 동아리에 들어가거나 마음 맞는 친구와 함께</p>
+    <p>동아리를 개설 해보는 것도 좋을 것이라 생각합니다.</p>
 	</div>
 </section>
-<section id="기타">
+<section id="행사">
 	<div class="content">
-		<h1>기타</h1>
-		<h2>여기도 머적지</h2>
-		<p>대충 룰루랄라 중</p>
+		<h1>행사</h1>
+		<h2>______</h2>
+		<p>화명고등학교의 월별 행사에 대해 소개하는 페이지 입니다.</p>
+    <p>학사일정에 대해 궁금 하시다면 위 링크를 클릭하시면 이동할 수 있습니다.</p>
 	</div>
 </section>
-<section id="뭐함지">
+<section id="게시판">
 	<div class="content">
-		<h1>뭐함지</h1>
-		<h2>잠온다</h2>
-		<p>뿌뿌뿡</p>
-		<p>당가다 당당</p>
+		<h1>게시판</h1>
+		<h2>______</h2>
+		<p>자유롭게 이야기를 나눌 수 있는 공간입니다.</p>
+		<p>익명의 공간에서 자유롭게 대화를 나워보세요.</p>
 	</div>
 </section>
 <script src="{% static 'js/home_main.js' %}"></script>
