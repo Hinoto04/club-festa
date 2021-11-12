@@ -2,92 +2,123 @@
 {% load static %}
 {% load compress %}
 {% compress css %}
-<link rel="stylesheet" type="text/x-scss" href="{% static 'css/home_main.scss' %}">
+{% comment %} <link rel="stylesheet" type="text/x-scss" href="{% static 'css/home_main.scss' %}"> {% endcomment %}
 {% endcompress %}
 {% block style %}{{ block.super }}
 <link rel="stylesheet" href="{% static 'css/home_main.css' %}">
-<link rel="stylesheet" href="{% static 'css/home_main_sub.css' %}">
-{% comment %} <style>
-    .hwamyeong {
-      background-image: url("json/home_pic.json");
-    }
-</style> {% endcomment %}
-<style type="text/css">
+<script src={% static 'js/home_main.js' %}></script>
+{% comment %} <link rel="stylesheet" href="{% static 'css/home_main_sub.css' %}"> {% endcomment %}
+{% comment %} <style type="text/css">
 	body {
 		background-color: #F3FFFF;
 	}
-</style>
-<script src={% static 'js/vue.js' %}></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</style> {% endcomment %}
+{% comment %} <script src={% static 'js/vue.js' %}></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> {% endcomment %}
 <script>
-	var jsonpath = "{% static 'json/home_pic.json' %}";
+	{% comment %} var jsonpath = "{% static 'json/home_pic.json' %}"; {% endcomment %}
 </script>
 <!--해드부분 -->
 {% endblock style %}
 {% block title %}화명고 동아리 행사{% endblock title %}
 {% block content %}
  <!-- 바디부분 -->
-<a href="http://localhost:8000/club/%22%3E"<img src="{% static 'png/hw' %}" ></a>
-
- <a href="http://localhost:8000/event/%22%3E"<img src="{% static 'png/hwa' %}" ></a>
-
- <a href="http://localhost:8000/post/%22%3E"<img src="{% static 'png/hhwa' %}" ></a>
-
-
- <div class="slideshow">
-  <div class="slideshow__container js-home_main_sub">
-  	
-    <img
-      v-for="slide, index in slides"
-      :key="slide.id"
-      :src="slide.url"
-      :alt="slide.title"
-      :class="{ active: isActive(index) }"
-      @mouseover="stopRotation"
-      @mouseout="startRotation"
-	  class="slideshow-image"
-    />
+<div class="menu-btn">
+    <i class="fas fa-bars fa-2x"></i>
   </div>
-</div>
-<nav class="hwa-nav">
-	<div class="navbar-wrapper">
-		<nav>
-			<div class="content">
-				<ul>
-					<li class="action-item"><a href=""><p>P</p></a></li>
-					<li class="item"><a href="#동아리"><p>동아리</p></a></li>
-					<li class="item"><a href="#행사"><p>행사</p></a></li>
-					<li class="item"><a href="#게시판"><p>게시판</p></a></li>
-				</ul>
-			</div>
-		</nav>
-	</div>
-</nav>
-<section id="동아리">
-	<div class="content">
-		<h1>동아리</h1>
-		<h2>______</h2>
-		<p>저희 학교에는 여러 동아리들이 존재합니다. 과학, 생태, 경제, 예술, 기술, 스포츠, 댄스 등</p>
-    <p>다양한 분야로 학생들의 주도하는 동아리들이 개설되어 있습니다. 원하는 동아리에 들어가거나 마음 맞는 친구와 함께</p>
-    <p>동아리를 개설 해보는 것도 좋을 것이라 생각합니다.</p>
-	</div>
-</section>
-<section id="행사">
-	<div class="content">
-		<h1>행사</h1>
-		<h2>______</h2>
-		<p>화명고등학교의 월별 행사에 대해 소개하는 페이지 입니다.</p>
-    <p>학사일정에 대해 궁금 하시다면 위 링크를 클릭하시면 이동할 수 있습니다.</p>
-	</div>
-</section>
-<section id="게시판">
-	<div class="content">
-		<h1>게시판</h1>
-		<h2>______</h2>
-		<p>자유롭게 이야기를 나눌 수 있는 공간입니다.</p>
-		<p>익명의 공간에서 자유롭게 대화를 나워보세요.</p>
-	</div>
-</section>
-<script src="{% static 'js/home_main.js' %}"></script>
-<script src="{% static 'js/home_main_sub.js' %}"></script>
+
+  <div class="container">
+    </nav>
+    <!-- Showcase -->
+    <header class="showcase">
+      <h2>화명고등학교 홈페이지</h2>
+      <p>
+        자세히 알아보기
+      </p>
+      <a href="#" class="btn">
+        클릭 <i class="fas fa-chevron-right"></i>
+      </a>
+    </header>
+
+    <!-- Home cards 1 -->
+    <section class="home-cards">
+      <div>
+        <img src="https://ifh.cc/g/jZFIfg.png" alt="">
+        <h3>동아리</h3>
+        <p>저희 학교에는 여러 동아리들이 존재합니다. 과학, 생태, 경제, 예술, 기술, 스포츠, 댄스 등 다양한 분야로 학생들의 주도하는 동아리들이 개설되어 있습니다.
+         
+        </p>
+        <a href="#">더 알아보기 <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div>
+        <img src="https://ifh.cc/g/p81KBk.png" alt="" />
+        <h3>행사</h3>
+        <p>화명고등학교의 월별 행사, 학사일정에 대해 소개하는 페이지 입니다.
+          
+        </p>
+        <a href="#">더 알아보기 <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div>
+        <img src="https://ifh.cc/g/UqIKuA.png" alt="" />
+        <h3>게시판</h3>
+        <p>자유롭게 이야기를 나눌 수 있는 공간입니다. 가상의 공간에서 자유롭게 대화를 이어나가보세요.
+          
+        </p>
+        <a href="#">더 알아보기 <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div>
+        <img src="https://ifh.cc/g/pisBdF.png" alt="" />
+        <h3>기타</h3>
+        <p>
+        기타는 딩기딩
+        </p>
+        <a href="#">더 알아보기 <i class="fas fa-chevron-right"></i></a>
+      </div>
+    </section>
+
+    <!-- Xbox -->
+    <section class="xbox">
+      <div class="content">
+        <h2>화명고등학교</h2>
+        <p>화명고등학교에 더 궁금한 부분이 있다면 홈페이지를 직접 방문 해보시길 바랍니다.</p>
+          <a href="#" class="btn">
+            바로가기 <i class="fas fa-chevron-right"></i>
+          </a>
+      </div>
+    </section>
+
+    <!-- Home cards 2 -->
+			<section class="home-cards">
+				<div>
+					<img src="https://ifh.cc/g/vcU0wA.png" alt="" />
+					<h3>화명고등학교 교훈</h3>
+					<p>높게 꿈꾸고</p>
+          <p>바르게 행동하여</p>
+          <p>아름다운 사람이 되자</p>
+				</div>
+				<div>
+					<img src="https://ifh.cc/g/oUI5Qg.png" alt="" />
+					<h3>화명고등학교 교목</h3>
+					<p>
+						은행나무
+					</p>					
+				</div>
+				<div>
+					<img src="https://ifh.cc/g/jGdicP.png" alt="" />
+					<h3>화명고등학교 교화</h3>
+					<p>
+						장미
+					</p>
+				</div>
+				<div>
+					<img src="https://ifh.cc/g/18F0jy.png" alt="" />
+					<h3>화명고등학교 교가</h3>
+					<p>금정산 영봉위로 아침해가 돋아오고</p>
+          <p>칠백리 낙동가에 젊은함성 드높아라</p>
+          <p>진리를 탐구하는 예지의 눈빛으로</p>
+          <p>내일을 창조하는 역사를 앞서간다</p>
+          <p>화명은 우리들의 영원한 모교</p>
+          <p>빛나리라 영원히 화명고 화명고</p>
+				</div>
+      </section>
 {% endblock content %}
