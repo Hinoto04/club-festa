@@ -103,11 +103,10 @@ body {
 
 
 .day {
-    max-width: 121.28px;
     width: 100%;
     border: 1px solid gray;
 }
-.event-li {
+.event-li {  
     padding: 0;
     padding-left: .5em;
 }
