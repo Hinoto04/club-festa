@@ -103,6 +103,7 @@ body {
 
 
 .day {
+    max-width: 121.28px;
     width: 100%;
     border: 1px solid gray;
 }
