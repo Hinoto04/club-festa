@@ -67,7 +67,15 @@
               {% for week in month %}
               <tr class="calendarhead calendarbody">
                 {% for day in week %}
-                  <td>{{day.date | strf}}</td>
+                  <td>
+                    {% if day.today %}
+                    <p class="datetext today">{{day.date | strf}}</p>
+                    {% elif day.event %}
+                    <p class="datetext eventday">{{day.date | strf}}</p>
+                    {% else %}
+                    <p class="datetext">{{day.date | strf}}</p>
+                    {% endif %}
+                  </td>
                 {% endfor %}
               </tr>
               {% endfor %}
