@@ -193,6 +193,19 @@ margin-left: 10px;
 .calendarhead>th:nth-child(7n+1), .calendarhead>td:nth-child(7n+1) {
 	color: #00239C;
 }
+.datetext {
+	margin: auto;
+	width: 24px;
+	height: 24px;
+}
+.today {
+	background-color: yellowgreen;
+	border-radius: 12px;
+}
+.eventday {
+	background-color: yellow;
+	border-radius: 12px;
+}
 .link_a {
 	text-decoration: none;
 }

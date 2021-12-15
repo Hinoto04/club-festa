@@ -36,6 +36,7 @@ def index(request):
         def __init__(self, date):
             self.date = date
             self.event = False
+            self.today = False
         
         def __str__(self):
             return self.event
@@ -61,7 +62,6 @@ def index(request):
     startdate = date(year = today.year, month = today.month, day=1)
     
     mt = (startdate.weekday()+1)%7 # 월요일==0+1 .... 일요일==6+1
-    year_month = startdate.strftime("%Y-%m")
     startdate = startdate - timedelta(days = mt)  #달력의 공칸 만큼 시작일 연기()
     
     sd = datetime.combine(startdate, time(), tz(timedelta(hours=9)))
@@ -76,6 +76,9 @@ def index(request):
                 d.event = True
             if d.date == event.end_date:
                 break
+    for d in month:
+        if today.date() == d.date:
+            d.today = True
     month = np.reshape(month, (5,7))
     
     #html로 보낼 거
