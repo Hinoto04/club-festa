@@ -2,10 +2,19 @@
 {% load static %}
 {% block style %}
 {{ block.super }}
-
+<link rel="stylesheet" type="text/css" href="{% static 'css/event_detail.css' %}">
 {% endblock style %}
 {% block title %}{{event.title}}{% endblock title %}
 {% block content %}
-<h2>{{event.title}}</h2>
-<pre>{{event.content}}</pre>
+<div class="flex-column box ">
+    <div class="detail">
+        <div class="title">
+            <h2>{{event.title}}</h2>
+        </div>
+        <div class="content">
+            <pre>{{event.content}}</pre>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

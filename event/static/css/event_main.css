@@ -79,7 +79,7 @@ body {
     margin: 0em auto;
     max-width: 850px;
     max-height: 700px;
-    
+    table-layout: fixed;
 }
 
 .weekend>td:nth-child(7n+1)>p, .weekend>th:nth-child(7n+1) {
@@ -99,16 +99,24 @@ body {
 
 .datetext {
     margin: 0;
+    width: 24px;
+    text-align: center;
 }
 
+.today {
+    background-color: greenyellow;
+    border-radius: 12px;
+}
 
 .day {
     width: 100%;
     border: 1px solid gray;
 }
 .event-li {  
+    white-space: nowrap;
     padding: 0;
     padding-left: .5em;
+    white-space: normal;
 }
 
 @media (max-width: 768px) {

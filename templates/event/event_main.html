@@ -40,10 +40,14 @@
                 <tr class="weekend">
                 {% for day in week %}
                     <td>
+                        {% if day.today %}
+                        <p class="datetext today">{{day.date | strf}}</p>
+                        {% else %}
                         <p class="datetext">{{day.date | strf}}</p>
+                        {% endif %}
                         <ul class="list-group list-group-flush">
                         {% for event in day.event %}
-                            <a class="list-group-item event-li" href="{% url 'event:detail' %}">{{event.title}}</a>
+                            <a class="list-group-item event-li" href="{% url 'event:detail' event.id %}">{{event.title}}</a>
                         {% endfor %}
                         </ul>
                     </td>
@@ -59,9 +63,7 @@
                     <p class="datetext">{{day.date | strf}}</p>
                     <ul class="list-group list-group-flush">
                     {% for event in day.event %}
-                        <li class="list-group-item event-li">
-                            {{event.title}}
-                        </li>
+                        <a class="list-group-item event-li" href="{% url 'event:detail' event.id %}">{{event.title}}</a>
                     {% endfor %}
                     </ul>
                 </div>

@@ -16,6 +16,7 @@ def index(request, event_month=None):
         def __init__(self, date):
             self.date = date
             self.event = []
+            self.today = False
         
         def __str__(self):
             return self.event
@@ -25,7 +26,7 @@ def index(request, event_month=None):
     
     #대충 첫 날짜
     if event_month:
-        startdate = datetime.strptime(str(event_month),'%Y%m')
+        startdate = datetime.strptime(str(event_month),'%Y%m').date()
     else:
         today = timezone.localtime()
         startdate = date(year = today.year, month = today.month, day=1)
@@ -34,7 +35,7 @@ def index(request, event_month=None):
     year_month = startdate.strftime("%Y-%m")
     startdate = startdate - timedelta(days = mt)  #달력의 공칸 만큼 시작일 연기()
     
-    sd = datetime.combine(startdate, time(), tz(timedelta(hours=9)))
+    sd = datetime.combine(startdate, time(), tz(timedelta(hours=9))).date()
     events = Event.objects.filter(start_date__gte=sd).filter(end_date__lte=sd+timedelta(days=35)).order_by('start_date')
     
     month = []
@@ -42,6 +43,8 @@ def index(request, event_month=None):
         month.append(day(startdate + timedelta(days = i)))
     for event in events:
         for d in month:
+            if today.date() == d.date:
+                d.today = True
             if event.start_date <= d.date <= event.end_date:
                 d.event.append(event)
             if d.date == event.end_date:
