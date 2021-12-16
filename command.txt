@@ -1,2 +1,0 @@
-. ~/venvs/bin/activate
-cd ~/projects/club-festa 
