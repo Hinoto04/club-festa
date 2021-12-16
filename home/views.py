@@ -1,4 +1,6 @@
 
+import requests
+from bs4 import BeautifulSoup
 from datetime import datetime
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -81,11 +83,24 @@ def index(request):
             d.today = True
     month = np.reshape(month, (5,7))
     
+    webpage = requests.get("https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%ED%99%94%EB%AA%85%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90&oquery=%ED%99%94%EB%AA%85%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90+%EA%B8%89%EC%8B%9D%EC%8B%9D%EB%8B%A8&tqi=hkVTosp0YihssZiaVCdssssstGC-306582")
+    soup = BeautifulSoup(webpage.content, "html.parser")
+    #title = soup.select_one("#main_pack > div.sc_new.cs_common_module.case_normal.color_23._school.cs_kindergarten._edu_list > div.cm_content_wrap > div:nth-child(3) > div > div.scroll_box._button_scroller > div > div > ul > li:nth-child(1) > div > div > ul")
+    today_menus = soup.select_one("div.time_normal_list")
+    menu = today_menus = today_menus.select("ul > li")
+    sendmenu = []
+
+    for m in menu:
+        sendmenu.append(m.text)
+
+    print(sendmenu)
+    
     #html로 보낼 거
     context = {
         'notice_list': notice_list,
         'hot_list': hot_list,
         'month': month,
+        'menu': sendmenu,
     }
     return render(request, 'home/home_main.html', context)
 

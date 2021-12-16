@@ -94,7 +94,6 @@
         </a>
         <h3>동아리</h3>
         <p>저희 학교에는 여러 동아리들이 존재합니다. 과학, 생태, 경제, 예술, 기술, 스포츠, 댄스 등 다양한 분야로 학생들의 주도하는 동아리들이 개설되어 있습니다.
-         
         </p>
       </div>
       <div>
@@ -140,19 +139,13 @@
 
     <!-- Home cards 2 -->
 			<section class="home-cards">
-				<div>
-					<ul> <li class="menu_info"> 
-          <strong>11월 12일 [점심]</strong> <ul> <li>혼합잡곡밥5.</li> <li>마라탕1.2.5.6.10.13.15.16.17.</li> <li>맛동산탕수육(땅콩)1.4.5.6.10.</li> <li>중국식오이무침(ㅎ)13.</li> <li>맛김</li> <li>배추김치9.13.</li> </ul> </li> </ul><strong>11월 12일 [저녁]</strong>
-           <ul> <li>콩나물밥*볶은김5.6.10.13.</li> <li>미소장국(화명)5.6.</li> <li>크로크무슈(석식)1.2.5.6.10.13.15.18.</li> <li>멸치볶음5.13.</li> <li>배추김치9.13.</li> </ul> </li> <li class="menu_info"> 
-				</div>
-				<div>
-					<ul> <li class="menu_info"> <strong>11월 15일 [점심]</strong> <ul> <li>밥조금</li> <li>카불면,배,파인애플,사과,키위포2.5.6.10.12.13.16.18.</li> <li>애느타리고추장무침5.6.13.</li> <li>배추김치9.13.</li> <li>감자크로켓1.2.5.6.</li> <li>자두맛음료_자두나무</li> </ul> </li> </ul><strong>11월 15일 [저녁]</strong> <ul> <li>김밥볶음밥1.2.5.6.10.13.16.</li> <li>닭칼국수6.9.13.15.17.18.</li> <li>미니돈까스(화명)+케찹1.5.6.10.12.13.</li> <li>깻잎순무침5.6.</li> <li>배추김치9.13.</li> </ul> </li> <li class="menu_info"> 					
-				</div>
-				<div>
-					<ul><li class="menu_info"><li class="menu_info"> <strong>11월 16일 [점심]</strong> <ul> <li>수능정답도끼쿠키1.2.5.6.</li> <li>혼합잡곡밥5.</li> <li>쇠고기매운국5.6.16.</li> <li>일미무침4.5.6.13.17.</li> <li>양파부추겨자무침5.6.13.</li> <li>배추김치9.13.</li> <li>언양식반달불고기1.2.5.6.10.12.15.16.</li> </ul> </li> <strong>11월 16일 [저녁]</strong> <ul> <li>배추김치9.13.</li> <li>혼합잡곡밥(석식)(화명)5.</li> <li>숯불돈등뼈찜5.6.10.12.13.</li> <li>통영꿀빵1.2.4.5.6.13.</li> <li>참나물무침5.6.</li> <li>달걀파국1.5.6.</li> </ul> </li></ul>
-				</div>
-				<div>
-				<ul><li class="menu_info"> <strong>11월 19일 [점심]</strong> <ul> <li>오므라이스(오븐)1.2.5.6.10.12.13.16.18.</li> <li>맑은장국1.5.6.7.9.13.18.</li> <li>소떡소떡꼬치1.6.10.15.</li> <li>브로콜리,초고추장(화명)5.6.13.</li> <li>배추김치9.13.</li> <li>딸기라떼2.13.</li> </ul> </li><li class="menu_info"> <strong>11월 19일 [저녁]</strong> <ul> <li>혼합잡곡밥(석식)(화명)5.</li> <li>들깨무채국</li> <li>감자채전(화명)1.2.5.6.</li> <li>배추김치9.13.</li> <li>실곤약매콤무침5.6.13.</li> <li>너비아니구이5.6.10.12.13.15.16.18.</li> </ul> </li></ul>
-				</div>
+        <div class="food"style="background-color:#CCCCCC; padding:20px;">
+        <h2>오늘의 급식</h2>
+        <p>
+          {% for m in menu %}
+          <p2>{{m}},</p2>
+          {% endfor %}
+        </p>
+        </div>
       </section>
 {% endblock content %}
