@@ -31,7 +31,11 @@ SECRET_KEY = open(BASE_DIR / 'secretkey.txt', 'r').readline
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "*"
+    "3.35.218.227",
+    "127.0.0.1",
+    "localhost",
+    "ec2-3-35-218-227.ap-northeast-2.compute.amazonaws.com",
+    "clubfesta.hwamyeong.kro.kr",
 ]
 # Application definition
 
