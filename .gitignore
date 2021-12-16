@@ -6,3 +6,4 @@ db_setting.py
 mail_secret.py
 *.log
 *.log
+config/secret_key.py
