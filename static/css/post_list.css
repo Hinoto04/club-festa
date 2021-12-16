@@ -1,0 +1,103 @@
+.title {
+    text-align:center;
+}
+
+.filter {
+    text-align:center;
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #505050;
+    font-weight: 700;
+}
+
+.filter:hover {
+    text-decoration: none;
+}
+
+.postlist {
+    width: 80%;
+    font-size: 1.4vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vw;
+}
+
+tbody {
+    width:100%;
+}
+tr {
+    width: 100%;
+}
+
+.table th, .table td {
+    padding: 0.2rem;
+    text-align:center;
+    vertical-align: middle;
+}
+
+.id {
+    width: 8%;
+}
+.ptitle {
+    width: 55%;
+    height: 1.5vw;
+    text-align: left!important;
+}
+
+.titletext {
+    width:100%;
+    text-align:left;
+    color:black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap : break-word; 
+    display : -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.titletext:hover {
+    color: black;
+}
+.author {
+    width: 8%;
+    min-widtH: 40px;
+}
+.author>a {
+    width:100%;
+    color: black;
+}
+.category {
+    width: 10%;
+}
+.category>a {
+    color: black;
+}
+.createdate {
+    width: 7%;
+}
+.views {
+    width: 6%;
+    min-width:28px;
+}
+.like {
+    width: 6%;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .notmobile {
+        display:none;
+    }
+}
+
+.notice>th {
+    color: red;
+}
+
+.nothing {
+    margin: 20px;
+}

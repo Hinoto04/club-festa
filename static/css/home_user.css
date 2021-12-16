@@ -1,3 +1,7 @@
+img {
+    max-width: 100%;
+}
+
 .userdata {
     max-width : 980px;
     width : 80%;
@@ -51,4 +55,13 @@
 
 .last_date {
     margin-top: auto;
+}
+
+.clublink {
+    color: black;
+    text-decoration: none;
+}
+.clublink:hover {
+    color: black;
+    text-decoration: none;
 }

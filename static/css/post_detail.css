@@ -1,0 +1,135 @@
+.contents {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
+}
+
+.info {
+    border-bottom: 1px solid rgb(202, 202, 202);
+    padding-bottom: 0.5em;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.infodetail {
+    margin: 0;
+    font-size: 0.85em;
+    vertical-align: middle;
+}
+
+.author, .views {
+    padding: 0;
+    padding-right: .75em;
+    border-right: 1px solid rgb(170, 170, 170);
+    margin-right: .75em;
+}
+
+.description {
+    margin-top: 1em;
+    min-height: 10em;
+    border-bottom: 1px solid rgb(202, 202, 202);
+    padding-bottom: 0.5em;
+}
+
+.addition {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+    /*border: 1px solid rgb(146, 146, 146);*/
+}
+.likebtn, .dislikebtn {
+    width: 3em;
+    display: inline-block;
+    margin: 0;
+    text-shadow: 1em 1em 5px #000;
+    border: 1px solid rgb(146, 146, 146);
+    color: rgb(146, 146, 146);
+}
+.likebtn:hover {
+    color: rgb(121, 228, 99);
+}
+.dislikebtn:hover {
+    color: rgb(255, 137, 137);
+}
+.likecancelbtn, .dislikecancelbtn {
+    width: 3em;
+    display: inline-block;
+    margin: 0;
+    text-shadow: 1em 1em 5px #000;
+    border: 1px solid rgb(146, 146, 146);
+}
+.likecancelbtn:hover, .dislikecancelbtn:hover {
+    color:rgb(146, 146, 146);
+}
+.likecancelbtn {
+    color:rgb(121, 228, 99);
+}
+.dislikecancelbtn {
+    color:rgb(255, 137, 137);
+}
+
+.likenum {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    width: 2em;
+    margin: 0;
+}
+
+.cwritegroup {
+    border-top: 1px solid rgb(202, 202, 202);
+    border-bottom: 1px solid rgb(202, 202, 202);
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: 0;
+}
+.commenttextarea {
+    width: 100%;
+    font-size: 1em;
+    resize: none;
+    margin: 0;
+    overflow: visible;
+    overflow-y: hidden;
+    line-height: 1.2em;
+    padding-top: .2em;
+    padding-bottom: .2em;
+}
+
+.comment {
+    border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.commentinfo>p {
+    font-size: .75em;
+    margin-bottom: 0;
+}
+
+.commentcontent {
+    font-size: 1em;
+    margin-left: 1em;
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .contents {
+        width: 85%;
+    }
+    .notmobile {
+        display:none;
+    }
+    .author {
+        padding: 0;
+        border: 0;
+        margin: 0;
+    }
+    /*
+    .description {
+        min-height: 280px;
+    }
+    */
+}

@@ -1,0 +1,72 @@
+.all {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.titlebox {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.modify {
+    width: 50%;
+    padding: 1em;
+}
+.information {
+    border-right: 1px solid #000;
+}
+
+.managediv {
+    padding-top: 1em;
+}
+
+th.memberheader {
+    padding: .5em;
+    padding-left: 0.25em;
+}
+.membernum {
+    font-size: .75em;
+    margin:0;
+}
+
+td.memberbox {
+    padding: .25em;
+    font-size: .9em;
+}
+.membername {
+    height:100%;
+    text-decoration: none;
+    vertical-align: middle;
+    color: #000;
+}
+.membername:hover {
+    text-decoration: none;
+    color: blue;
+}
+
+.applibtn {
+    padding-right: .5em;
+}
+.applibtn:hover {
+    text-decoration: none;
+    color: black;
+}
+.acceptbtn {
+    color: green;
+}
+.refusebtn {
+    color: red;
+}
+
+@media (max-width: 768px) {
+    .all {
+        width: 90%;
+    }
+    .modify {
+        width: 100%;
+    }
+    .information {
+        border: 0;
+    }
+}
